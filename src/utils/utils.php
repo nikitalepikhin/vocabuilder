@@ -35,10 +35,6 @@ function userBornAfter1920($birthDate)
     return $birthYear > 1920;
 }
 
-/**
- * @param $birthDate
- * @return bool
- */
 function userIsAtLeastFourteen($birthDate)
 {
     $birthDate = explode("-", $birthDate);
@@ -100,4 +96,46 @@ function usernameCorrect($username)
     $regex = "#([a-z0-9_]+\.?[a-z0-9_]+)+\.?([a-z0-9_]+\.?[a-z0-9_]+)+#"; // using delimiters #
     $modified = preg_replace($regex, "", $username);
     return strlen($modified) === 0;
+}
+
+function loginUser($conn, $username, $password)
+{
+    $exists = usernameOrEmailExists($conn, $username);
+    if (!$exists) {
+        header("Location: ../login/login.php?error=doesnotexist");
+        exit();
+    } else {
+        $passwordHashed = hash("sha512", $password . "zwasalt2021");
+        $passwordStored = retrieveUser($conn, $username)["USER_PASSWORD"];
+        if (strcmp($passwordHashed, $passwordStored) !== 0) {
+            header("Location: ../login/login.php?error=wrongpassword");
+            exit();
+        } else {
+            session_start();
+            $_SESSION["userid"] = retrieveUser($conn, $username)["USER_ID"];
+            $_SESSION["username"] = retrieveUser($conn, $username)["USER_USERNAME"];
+            header("Location: ../profile/profile.php?error=none");
+            exit();
+        }
+    }
+}
+
+function retrieveUser($conn, $username)
+{
+    $sql = "SELECT * FROM USER WHERE USER_EMAIL='$username' OR USER_USERNAME='$username'";
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) === 1) {
+        $row = mysqli_fetch_assoc($result);
+        return $row;
+    } else {
+        header("Location: ../login/login.php?error=doesnotexist");
+        exit();
+    }
+}
+
+function usernameOrEmailExists($conn, $username)
+{
+    $emailExists = emailExists($conn, $username);
+    $usernameExists = usernameExists($conn, $username);
+    return $emailExists || $usernameExists;
 }

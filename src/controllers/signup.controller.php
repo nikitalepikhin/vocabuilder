@@ -25,7 +25,7 @@ if (isset($_POST["submit"])) {
             exit();
         }
         if (!birthDateIsValid($birthDate)) {
-            header("Location: ../signup/signup.php?error=invalidage");
+            header("Location: ../signup/signup.php?error=invalidbirthdate");
             exit();
         }
         if (!emailCorrect($email)) {

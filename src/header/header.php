@@ -1,12 +1,57 @@
-<header>
-    <nav>
-        <div class="nav-left">
-            <a href="../index.php">Vocabuilder</a>
-        </div>
-        <div class="nav-right">
-            <a href="../login/login.php">Log In</a>
-            <a href="../signup/signup.php">Sign Up</a>
-        </div>
-    </nav>
-</header>
-<hr/>
+<?php
+session_start();
+?>
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vocabuilder</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <nav>
+            <div class="nav-left">
+
+                <a href="../index.php" class="nav-link">
+                    <div class="nav-item logo">
+                        Vocabuilder
+                    </div>
+                </a>
+            </div>
+            <div class="nav-right">
+                <?php if (isset($_SESSION["userid"])): ?>
+                    <a href="../profile/profile.php" class="nav-link">
+                        <div class="nav-item">
+                            Profile
+                        </div>
+                    </a>
+                    <a href="../logout/logout.php" class="nav-link">
+                        <div class="nav-item">
+                            Log Out
+                        </div>
+                    </a>
+                <?php else: ?>
+                    <a href="../login/login.php" class="nav-link">
+                        <div class="nav-item">
+                            Log In
+                        </div>
+                    </a>
+                    <a href="../signup/signup.php" class="nav-link">
+                        <div class="nav-item">
+                            Sign Up
+                        </div>
+                    </a>
+                <?php endif; ?>
+
+            </div>
+        </nav>
+    </header>

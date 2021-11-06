@@ -1,4 +1,6 @@
-<hr/>
 <footer>
-    <p>Project by Nikita Lepikhin</p>
+    <div class="footer-item">Project by Nikita Lepikhin</div>
 </footer>
+</div>
+</body>
+</html>
