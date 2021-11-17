@@ -34,13 +34,12 @@ if (!isset($_SESSION["userid"])) {
 
             if (isset($conn)) {
                 $userId = $_SESSION["userid"];
-                echo "user id is ".$userId;
                 $result = retrieveVocabSets($conn, $userId, 1, 10);
                 if ($result != false) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         $userId = $row["VOCAB_SET_USER_ID"];
                         $vocabSetId = $row["VOCAB_SET_ID"];
-                        echo "<a href='../vocab/vocabset.php?set=$vocabSetId'><div>" . $row["VOCAB_SET_NAME"] . "</div></a>";
+                        echo "<a href='../vocab/vocabset.php?id=$vocabSetId'><div>" . $row["VOCAB_SET_NAME"] . "</div></a>";
                     }
                 }
             }

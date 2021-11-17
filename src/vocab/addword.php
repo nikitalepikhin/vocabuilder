@@ -10,7 +10,7 @@ if (!isset($_SESSION["userid"])) {
 <head>
     <meta charset="UTF-8">
     <title>Vocabuilder</title>
-    <link rel="stylesheet" href="./profile.css">
+    <link rel="stylesheet" href="./addword.css">
     <link rel="stylesheet" href="../styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,13 +20,16 @@ if (!isset($_SESSION["userid"])) {
 <div class="wrapper">
 
     <?php
-    include_once "../header/header.php"
+    include_once "../header/header.php";
+    $vocabSetId = $_GET["id"];
     ?>
 
-    <form action="../controllers/addvocabset.controller.php" method="post">
-        <h1>Add a new vocabulary set</h1>
-        <label for="setName">Set name</label>
-        <input type="text" id="setName" name="setName">
+    <form action="../controllers/addword.controller.php?id=<?php echo $vocabSetId?>" method="post">
+        <h1>Add a new word</h1>
+        <label for="word">Word</label>
+        <input type="text" id="word" name="word">
+        <label for="definition">Definition</label>
+        <input type="text" id="definition" name="definition">
         <button type="submit" id="submit" name="submit">Add</button>
     </form>
 

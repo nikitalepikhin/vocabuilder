@@ -118,3 +118,27 @@ function retrieveVocabSets($conn, $userId, $pageNumber, $rowsPerPage)
         return false;
     }
 }
+
+function retrieveWordById($conn, $wordId)
+{
+    $sql = "SELECT * FROM WORD_ENTRY WHERE WORD_ENTRY_ID='$wordId'";
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) === 1) {
+        return mysqli_fetch_assoc($result);
+    } else {
+        return false;
+    }
+}
+
+function retrieveWordEntries($conn, $vocabSetId, $pageNumber, $rowsPerPage)
+{
+    $offset = strval(($pageNumber - 1) * $rowsPerPage);
+    $limit = strval($rowsPerPage);
+    $sql = "SELECT * FROM WORD_ENTRY WHERE WORD_ENTRY_VOCAB_SET_ID='$vocabSetId' LIMIT $limit OFFSET $offset";
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        return $result;
+    } else {
+        return false;
+    }
+}
