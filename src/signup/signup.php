@@ -1,6 +1,26 @@
 <?php
-include_once "../header/header.php"
+session_start();
+if (isset($_SESSION["userid"])) {
+    header("Location: ../profile/profile.php");
+}
 ?>
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vocabuilder</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="wrapper">
+
+    <?php
+    include_once "../header/header.php"
+    ?>
 
 <div class="form-container">
     <h1 class="title">Create an account</h1>
@@ -81,6 +101,9 @@ include_once "../header/header.php"
 
             <button class="btn" type="submit" name="submit">Sign Up</button>
         </div>
+    </form>
+    <form action="../login/login.php">
+        <div>Already have an account? <button type="submit">Log in</button>.</div>
     </form>
 </div>
 

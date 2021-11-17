@@ -1,5 +1,29 @@
 <?php
 
+require_once "../database/db.conn.php";
+require_once "../utils/utils.php";
+
+// create a user and insert in into the database
+function createUser($conn, $email, $username, $password, $firstName, $lastName, $dateOfBirth)
+{
+    $sql = "insert into USER (USER_EMAIL, USER_USERNAME, USER_PASSWORD, USER_FIRST_NAME, USER_LAST_NAME, USER_BIRTH_DATE) values (?, ?, ?, ?, ?, ?)";
+
+    if (!$stmt = mysqli_prepare($conn, $sql)) {
+        header("Location: ../signup/signup.php?error=internalerror");
+        exit();
+    }
+
+    if (!mysqli_stmt_bind_param($stmt, 'ssssss', $email, $username, $password, $firstName, $lastName, $dateOfBirth)) {
+        header("Location: ../signup/signup.php?error=internalerror");
+        exit();
+    }
+
+    if (!mysqli_stmt_execute($stmt)) {
+        header("Location: ../signup/signup.php?error=internalerror");
+        exit();
+    }
+}
+
 // if the form has been properly submitted
 if (isset($_POST["submit"])) {
     // retrieve the form fields data
@@ -10,9 +34,6 @@ if (isset($_POST["submit"])) {
     $username = $_POST["username"];
     $password = $_POST["password"];
     $passwordRepeat = $_POST["password-repeat"];
-
-    require_once "../database/db.conn.php";
-    require_once "../utils/utils.php";
 
     if (isset($conn)) {
         if (empty($birthDate) || empty($email) || empty($username) || empty($password) || empty($passwordRepeat)) {

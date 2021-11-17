@@ -1,6 +1,32 @@
 <?php
 include_once "../header/header.php"
 ?>
+
+<?php
+session_start();
+if (isset($_SESSION["userid"])) {
+    header("Location: ../profile/profile.php");
+}
+?>
+
+    <!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Vocabuilder</title>
+        <link rel="stylesheet" href="../styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    </head>
+<body>
+<div class="wrapper">
+
+<?php
+include_once "../header/header.php"
+?>
+<body>
+
     <div class="form-container">
         <h1 class="title">Log In</h1>
         <form action="../controllers/login.controller.php" method="post">

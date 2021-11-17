@@ -1,26 +1,5 @@
 <?php
 
-// create a user and insert in into the database
-function createUser($conn, $email, $username, $password, $firstName, $lastName, $dateOfBirth)
-{
-    $sql = "insert into USER (USER_EMAIL, USER_USERNAME, USER_PASSWORD, USER_FIRST_NAME, USER_LAST_NAME, USER_BIRTH_DATE) values (?, ?, ?, ?, ?, ?)";
-
-    if (!$stmt = mysqli_prepare($conn, $sql)) {
-        header("Location: ../signup/signup.php?error=internalerror");
-        exit();
-    }
-
-    if (!mysqli_stmt_bind_param($stmt, 'ssssss', $email, $username, $password, $firstName, $lastName, $dateOfBirth)) {
-        header("Location: ../signup/signup.php?error=internalerror");
-        exit();
-    }
-
-    if (!mysqli_stmt_execute($stmt)) {
-        header("Location: ../signup/signup.php?error=internalerror");
-        exit();
-    }
-}
-
 function birthDateIsValid($birthDate)
 {
     if (!userBornAfter1920($birthDate)) return false;
@@ -98,38 +77,14 @@ function usernameCorrect($username)
     return strlen($modified) === 0;
 }
 
-function loginUser($conn, $username, $password)
-{
-    $exists = usernameOrEmailExists($conn, $username);
-    if (!$exists) {
-        header("Location: ../login/login.php?error=doesnotexist");
-        exit();
-    } else {
-        $passwordHashed = hash("sha512", $password . "zwasalt2021");
-        $passwordStored = retrieveUser($conn, $username)["USER_PASSWORD"];
-        if (strcmp($passwordHashed, $passwordStored) !== 0) {
-            header("Location: ../login/login.php?error=wrongpassword");
-            exit();
-        } else {
-            session_start();
-            $_SESSION["userid"] = retrieveUser($conn, $username)["USER_ID"];
-            $_SESSION["username"] = retrieveUser($conn, $username)["USER_USERNAME"];
-            header("Location: ../profile/profile.php?error=none");
-            exit();
-        }
-    }
-}
-
-function retrieveUser($conn, $username)
+function retrieveUserByUsername($conn, $username)
 {
     $sql = "SELECT * FROM USER WHERE USER_EMAIL='$username' OR USER_USERNAME='$username'";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) === 1) {
-        $row = mysqli_fetch_assoc($result);
-        return $row;
+        return mysqli_fetch_assoc($result);
     } else {
-        header("Location: ../login/login.php?error=doesnotexist");
-        exit();
+        return false;
     }
 }
 
@@ -138,4 +93,28 @@ function usernameOrEmailExists($conn, $username)
     $emailExists = emailExists($conn, $username);
     $usernameExists = usernameExists($conn, $username);
     return $emailExists || $usernameExists;
+}
+
+function retrieveVocabSetById($conn, $vocabSetId)
+{
+    $sql = "SELECT * FROM VOCAB_SET WHERE VOCAB_SET_ID='$vocabSetId'";
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) === 1) {
+        return mysqli_fetch_assoc($result);
+    } else {
+        return false;
+    }
+}
+
+function retrieveVocabSets($conn, $userId, $pageNumber, $rowsPerPage)
+{
+    $offset = strval(($pageNumber - 1) * $rowsPerPage);
+    $limit = strval($rowsPerPage);
+    $sql = "SELECT * FROM VOCAB_SET WHERE VOCAB_SET_USER_ID='$userId' LIMIT $limit OFFSET $offset";
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        return $result;
+    } else {
+        return false;
+    }
 }
