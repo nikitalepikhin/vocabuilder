@@ -1,30 +1,14 @@
 <?php
-session_start();
+include_once "header.php";
+error_reporting(0);
 if (isset($_SESSION["userid"])) {
-    header("Location: ../profile/profile.php");
+    header("Location: profile.php");
 }
 ?>
 
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Vocabuilder</title>
-    <link rel="stylesheet" href="../styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-</head>
-<body>
-<div class="wrapper">
-
-    <?php
-    include_once "../header/header.php"
-    ?>
-
 <div class="form-container">
     <h1 class="title">Create an account</h1>
-    <form action="../controllers/signup.controller.php" method="post">
+    <form action="controllers/signup.controller.php" method="post">
         <div class="form-elements-wrapper">
             <div class="form-element">
                 <label for="first-name">First Name: </label>
@@ -102,77 +86,32 @@ if (isset($_SESSION["userid"])) {
             <button class="btn" type="submit" name="submit">Sign Up</button>
         </div>
     </form>
-    <form action="../login/login.php">
-        <div>Already have an account? <button type="submit">Log in</button>.</div>
-    </form>
+    <div>Already have an account? <a href="login.php">Log in</a>.</div>
 </div>
 
 <?php
 if (isset($_GET["error"])) {
-    $error = $_GET["error"];
-    switch ($error) {
-        case "none":
-            echo '<div class="message info-message">';
-            echo '<p>You have successfully signed up!</p>';
-            echo '</div>';
-            break;
-        case "internalerror":
-            echo '<div class="message error-message">';
-            echo '<p>Internal error: something went wrong.</p>';
-            echo '</div>';
-            break;
-        case "invalidsubmit":
-            echo '<div class="message error-message">';
-            echo '<p>Error: the form has to be submitted via the \"Create an account\" button.</p>';
-            echo '</div>';
-            break;
-        case "invalidbirthdate":
-            echo '<div class="message error-message">';
-            echo '<p>Error: you are not allowed to sign up, the user must be at least 14 years of age to sign up.</p>';
-            echo '</div>';
-            break;
-        case "passwordsdontmatch":
-            echo '<div class="message error-message">';
-            echo '<p>Error: the passwords that you have entered do not match.</p>';
-            echo '</div>';
-            break;
-        case "emailexists":
-            echo '<div class="message error-message">';
-            echo '<p>Error: the email that you have entered is already in use with another account.</p>';
-            echo '</div>';
-            break;
-        case "invalidemail":
-            echo '<div class="message error-message">';
-            echo '<p>Error: the e-mail that you have entered is invalid.</p>';
-            echo '</div>';
-            break;
-        case "invalidusername":
-            echo '<div class="message error-message">';
-            echo '<p>Error: the username that you have entered is invalid.</p>';
-            echo '</div>';
-            break;
-        case "usernameexists":
-            echo '<div class="message error-message">';
-            echo '<p>Error: the username that you have entered is already taken.</p>';
-            echo '</div>';
-            break;
-        case "weakpassword":
-            echo '<div class="message error-message">';
-            echo '<p>Error: the password that you have entered is weak.<br/>Password must be at least 10 characters long and contain at least one symbol from the following groups:</p>';
-            echo '<ul><li>Capital letters (A-Z)</li><li>Small letters (a-z)</li><li>Digits (0-9)</li><li>Special characters (*, ^, %, $, ?, etc)</li></ul>';
-            echo '</div>';
-            break;
-        case "emptyfields":
-            echo '<div class="message error-message">';
-            echo '<p>Error: all required fields must be filled out.</p>';
-            echo '</div>';
-            break;
-    }
+    $errorCode = $_GET["error"];
+    require_once "utils/errorhandlers.php";
+    $errorMessage = getErrorMessage($errorCode);
 }
 ?>
 
+<?php if ($errorCode === "weakpassword"): ?>
+    <div class="message error-message">
+        <p>The password that you have entered is weak.</p>
+        <p>Password must be at least 10 characters long and
+            contain at least one symbol from each of the following groups:</p>
+        <p>capital letters (A-Z), small letters (a-z), digits (0-9) and special characters (*, ^, %, $, ?, etc).</p>
+    </div>
+<?php elseif ($errorCode !== null): ?>
+    <div class="message error-message">
+        <p><?php echo $errorMessage ?></p>
+    </div>
+<?php endif ?>
+
 <?php
-include_once "../footer/footer.php"
+include_once "footer.php"
 ?>
 
 
