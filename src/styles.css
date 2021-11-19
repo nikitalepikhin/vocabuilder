@@ -79,7 +79,8 @@ footer {
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
 }
 
 .main-container > .main-image-container {
@@ -94,7 +95,7 @@ footer {
 }
 
 .required-input-label::after {
-    content: "*";
+    content: " *";
     color: darkred;
 }
 
@@ -169,7 +170,7 @@ footer {
     display: grid;
     grid-gap: 10px;
     grid-template-areas:
-        "username password";
+        "username" "password";
 }
 
 .login-form > .form-item-username {
@@ -228,7 +229,7 @@ footer {
     display: grid;
     grid-gap: 10px;
     grid-template-areas:
-        "word definition";
+        "word" "definition";
 }
 
 .add-word-form > .form-item-word {
@@ -250,3 +251,121 @@ footer {
 .add-set-form > .form-item-set-name {
     grid-area: setname;
 }
+
+/* Page styling */
+.main-content-container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    padding: 0 60px;
+    flex-grow: 1;
+    margin: 20px 0;
+}
+
+.toolbar {
+    width: 25%;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.toolbar-item {
+    margin: 5px 0;
+}
+
+.content {
+    width: 75%;
+    flex-shrink: 1;
+}
+
+/* Vocabulary sets page styling */
+.vocab-set-card {
+    background-color: rgba(219, 219, 219, 0.4);
+    padding: 20px;
+    font-size: larger;
+    color: black;
+    margin: 10px 60px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.vocab-set-card:hover {
+    background-color: rgb(230, 230, 230);
+    transition: background-color .1s ease;
+}
+
+.link {
+    text-decoration: none;
+    color: black;
+}
+
+.basic-link {
+    color: black;
+}
+
+.inviting-link {
+    color: #0039cb;
+}
+
+.basic-link:hover {
+    text-decoration: underline;
+    color: #0039cb;
+}
+
+.removal-link {
+    color: #d43f3a;
+    font-weight: bolder;
+}
+
+.removal-link:hover {
+    text-decoration: underline;
+}
+
+/* List of words in a set page styling*/
+p.word {
+    font-size: larger;
+    font-weight: bolder;
+    margin-bottom: 4px;
+    text-transform: capitalize;
+}
+
+p.definition {
+    font-size: medium;
+    margin-top: 4px;
+    text-transform: none;
+}
+
+/* Word card styling */
+.word-card {
+    background-color: rgba(219, 219, 219, 0.4);
+    padding: 20px;
+    color: black;
+    margin: 10px 60px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.word-card-key {
+    font-size: x-large;
+    font-weight: bolder;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0 5px 0;
+    text-transform: capitalize;
+}
+
+.word-card-value {
+    width: 100%;
+    padding: 10px 0 5px 0;
+    text-align: center;
+}
+
+

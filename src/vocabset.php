@@ -22,22 +22,28 @@ if (isset($conn)) {
 }
 ?>
 
-<div>
-    <div>
-        <a href="profile.php">Go back to profile</a>
-        <a href="addword.php?id=<?php echo $vocabSetId ?>">Add a new word to this set</a>
-        <a href="controllers/removevocabset.controller.php?id=<?php echo $vocabSetId ?>">Delete this set</a>
+<div class="main-content-container">
+    <div class="toolbar">
+        <div class="toolbar-item"><a class="link basic-link" href="profile.php">Go back to profile</a></div>
+        <div class="toolbar-item"><a class="link basic-link" href="addword.php?id=<?php echo $vocabSetId ?>">Add a new
+                word to this set</a>
+        </div>
+        <div class="toolbar-item"><a class="link basic-link"
+                                     href="controllers/removevocabset.controller.php?id=<?php echo $vocabSetId ?>">Delete
+                this set</a></div>
     </div>
-    <div>
+    <div class="content">
         <?php
         if (isset($conn)) {
             $result = retrieveWordEntries($conn, $vocabSetId, 1, 10);
-            if ($result != false) {
+            if (mysqli_num_rows($result) == 0) {
+                echo "<div class='vocab-set-card'>This vocabulary set is empty.</div>";
+            } elseif ($result != false) {
                 while ($row = mysqli_fetch_assoc($result)) {
                     $key = $row["WORD_ENTRY_KEY"];
                     $value = $row["WORD_ENTRY_VALUE"];
                     $wordEntryId = $row["WORD_ENTRY_ID"];
-                    echo "<a href='word.php?id=$wordEntryId'><div>" . $key . " = " . $value . "</div></a>";
+                    echo "<a class='link' href='word.php?id=$wordEntryId'><div class='vocab-set-card'><div><p class='word'>$key</p><p class='definition'>$value</p></div><div><a class='link removal-link' href='controllers/removeword.controller.php?id=$wordEntryId'>Remove</a></div></div></a>";
                 }
             }
         }
