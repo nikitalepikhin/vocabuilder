@@ -16,13 +16,13 @@ if (isset($_POST["submit"])) {
     $value = $_POST["definition"];
 
     if (empty($key) && empty($value)) {
-        header("Location: ../addword.php?error=emptyword");
+        header("Location: ../addword.php?id=$vocabSetId&error=emptyword");
         exit();
     } elseif (empty($value)) {
-        header("Location: ../addword.php?key=$key&error=emptywordvalue");
+        header("Location: ../addword.php?id=$vocabSetId&key=$key&error=emptywordvalue");
         exit();
     } elseif (empty($key)) {
-        header("Location: ../addword.php?value=$value&error=emptywordkey");
+        header("Location: ../addword.php?id=$vocabSetId&value=$value&error=emptywordkey");
         exit();
     }
 
