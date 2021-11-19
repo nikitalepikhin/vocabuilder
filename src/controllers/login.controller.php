@@ -13,7 +13,7 @@ function loginUser($conn, $username, $password)
         $passwordHashed = hash("sha512", $password . "zwasalt2021");
         $passwordStored = retrieveUserByUsername($conn, $username)["USER_PASSWORD"];
         if (strcmp($passwordHashed, $passwordStored) !== 0) {
-            header("Location: ../login.php?error=wrongpassword");
+            header("Location: ../login.php?username=$username&error=wrongpassword");
             exit();
         } else {
             session_start();

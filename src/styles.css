@@ -6,6 +6,7 @@
     font-size: 1rem;
 }
 
+/* Navbar styling */
 nav {
     display: flex;
     justify-content: space-between;
@@ -59,19 +60,21 @@ nav {
     text-decoration: none;
 }
 
+/* Footer styling */
 footer {
     display: flex;
     justify-content: center;
     width: 100vw;
     background-color: #f5f5f7;
-    font-size: 12px;
+    font-size: 3px;
 }
 
 .footer-item {
     padding: 5px 20px;
 }
 
-.wrapper {
+/* Main content styling */
+.main-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -79,61 +82,20 @@ footer {
     height: 100vh;
 }
 
-.content-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    height: 100%;
+.main-container > .main-image-container {
     width: 100%;
-    padding: 0 20px 0 20px;
+    height: 100%;
+    /*background-image: url("resources/dictionary-unsplash.jpg");*/
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .required-input-label::after {
     content: "*";
     color: darkred;
-}
-
-.form-container {
-    width: 500px;
-    background-color: rgba(212, 212, 212, 0.3);
-    border-radius: 3px;
-    border: none;
-    padding: 20px 40px;
-    display: flex;
-    justify-content: space-around;
-    flex-direction: column;
-    align-items: center;
-}
-
-.title {
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: large;
-    padding: 15px 25px;
-    margin: 10px;
-}
-
-.form-elements-wrapper {
-    display: flex;
-    justify-content: space-around;
-    flex-direction: column;
-    align-items: center;
-}
-
-.form-element {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 3px 0;
-}
-
-.form-element input {
-    border: none;
-    width: 50%;
-    padding: 5px;
-    background-color: inherit;
-    border-bottom: 1px solid black;
 }
 
 .btn {
@@ -142,7 +104,7 @@ footer {
     border-radius: 3px;
     color: #fff;
     border: none;
-    padding: 10px 15px;
+    padding: 8px 12px;
     text-transform: uppercase;
     box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
     font-size: 14px;
@@ -157,21 +119,134 @@ footer {
 .message {
     padding: 10px 15px;
     margin: 10px;
-    border-radius: 3px;
+    /*border-radius: 3px;*/
     text-align: center;
 }
 
 .error-message {
-    background-color: rgba(212, 63, 58, 0.3);
+    /*background-color: rgba(212, 63, 58, 0.3);*/
     color: #d43f3a;
 }
 
 .info-message {
-    background-color: rgba(124, 179, 66, 0.3);
+    /*background-color: rgba(124, 179, 66, 0.3);*/
     color: #4b830d;
 }
 
-.welcome-message {
-    position: fixed;
-    top: 100px;
+/* Form styling */
+.form {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    grid-gap: 10px;
+    padding: 10px;
+}
+
+.form-heading {
+    font-size: larger;
+    text-transform: uppercase;
+}
+
+.form-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.form-item > .input {
+    width: 100%;
+    border: 1px solid #d6d6d6;
+    border-radius: 2px;
+}
+
+.form-item > label {
+    font-size: small;
+}
+
+/* Login form */
+.login-form > .form-items-container {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-areas:
+        "username password";
+}
+
+.login-form > .form-item-username {
+    grid-area: username;
+}
+
+.login-form > .form-item-password {
+    grid-area: password;
+}
+
+/* Signup form */
+.signup-form > .form-items-container {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-areas:
+        "first last"
+        "birthdate birthdate"
+        "email username"
+        "pwd pwdr"
+}
+
+.signup-form > .form-item-first-name {
+    grid-area: first;
+}
+
+.signup-form > .form-item-last-name {
+    grid-area: last;
+}
+
+.signup-form > .form-item-birthdate {
+    grid-area: birthdate;
+}
+
+.signup-form > .form-item-email {
+    grid-area: email;
+}
+
+.signup-form > .form-item-username {
+    grid-area: username;
+}
+
+.signup-form > .form-item-password {
+    grid-area: pwd;
+}
+
+.signup-form > .form-item-password-repeat {
+    grid-area: pwdr;
+}
+
+.signup-form > .form-item-last-name {
+    grid-area: last;
+}
+
+/* Add a new word form */
+.add-word-form > .form-items-container {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-areas:
+        "word definition";
+}
+
+.add-word-form > .form-item-word {
+    grid-area: word;
+}
+
+.add-word-form > .form-item-definition {
+    grid-area: definition;
+}
+
+/* Add a set form */
+.add-set-form > .form-items-container {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-areas:
+        "setname";
+}
+
+.add-set-form > .form-item-set-name {
+    grid-area: setname;
 }

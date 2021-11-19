@@ -13,7 +13,7 @@ session_start();
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="wrapper">
+<div class="main-container">
 
     <header>
         <nav>
@@ -28,7 +28,11 @@ session_start();
                 <?php if (isset($_SESSION["userid"])): ?>
                     <a href="profile.php" class="nav-link">
                         <div class="nav-item">
-                            <?php echo $_SESSION["username"] ?>
+                            <?php if (empty($_SESSION["first"])): ?>
+                                Profile (<?php echo $_SESSION["username"] ?>)
+                            <?php else: ?>
+                                Profile (<?php echo $_SESSION["first"] . " " . $_SESSION["last"] ?>)
+                            <?php endif ?>
                         </div>
                     </a>
                     <a href="logout.php" class="nav-link">

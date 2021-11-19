@@ -20,7 +20,7 @@ if (isset($_POST["submit"])) {
     $firstName = $_POST["first-name"];
     $lastName = $_POST["last-name"];
     $birthDate = $_POST["date-of-birth"];
-    $email = $_POST["e-mail"];
+    $email = $_POST["email"];
     $username = $_POST["username"];
     $password = $_POST["password"];
     $passwordRepeat = $_POST["password-repeat"];
