@@ -28,7 +28,7 @@ session_start();
                 <?php if (isset($_SESSION["userid"])): ?>
                     <a href="profile.php" class="nav-link">
                         <div class="nav-item">
-                            Profile
+                            <?php echo $_SESSION["username"] ?>
                         </div>
                     </a>
                     <a href="logout.php" class="nav-link">

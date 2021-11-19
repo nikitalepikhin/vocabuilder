@@ -15,6 +15,9 @@ if (isset($conn)) {
     if ($row === false) {
         header("Location: ../profile.php?error=invalidsetid");
     }
+    if ($row["VOCAB_SET_USER_ID"] !== $_SESSION["userid"]) {
+        header("Location: notfound.php");
+    }
     $vocabSetName = $row["VOCAB_SET_NAME"];
 }
 ?>

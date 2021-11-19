@@ -11,6 +11,9 @@ $row = retrieveWordById($conn, $wordId);
 if ($row === false) {
     header("Location: ../profile.php?error=invalidwordid");
 }
+if ($row["WORD_ENTRY_USER_ID"] !== $_SESSION["userid"]) {
+    header("Location: notfound.php");
+}
 $key = $row["WORD_ENTRY_KEY"];
 $value = $row["WORD_ENTRY_VALUE"];
 ?>

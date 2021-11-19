@@ -155,9 +155,10 @@ footer {
 }
 
 .message {
-    padding: 15px 25px;
-    font-weight: bolder;
+    padding: 10px 15px;
+    margin: 10px;
     border-radius: 3px;
+    text-align: center;
 }
 
 .error-message {

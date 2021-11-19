@@ -1,7 +1,13 @@
 <?php
 include_once "header.php";
+error_reporting(0);
 if (!isset($_SESSION["userid"])) {
     header("Location: index.php");
+}
+if (isset($_GET["error"])) {
+    $errorCode = $_GET["error"];
+    require_once "utils/errorhandlers.php";
+    $errorMessage = getErrorMessage($errorCode);
 }
 ?>
 
@@ -12,6 +18,13 @@ if (!isset($_SESSION["userid"])) {
         <input type="text" id="setName" name="setName">
         <button type="submit" id="submit" name="submit">Add</button>
     </form>
+
+    <?php if ($errorCode !== null): ?>
+        <div class="message error-message">
+            <?php echo $errorMessage ?>
+        </div>
+    <?php endif ?>
+
     <a href="profile.php">Go back to profile</a>
 </div>
 
