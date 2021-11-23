@@ -43,7 +43,7 @@ function loginUser($conn, $username, $password)
             $_SESSION["first"] = $first;
             $_SESSION["last"] = $last;
             $_SESSION["email"] = $email;
-            header("Location: ../profile.php");
+            header("Location: ../index.php");
             exit();
         }
     }

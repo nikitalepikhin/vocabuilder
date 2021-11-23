@@ -11,9 +11,8 @@ if (!isset($_SESSION["userid"])) {
             <a class="link basic-link" href="addset.php">Create a new set</a>
         </div>
         <div class="toolbar-item">
-            <a class="link basic-link" href="#">Update your profile (coming later)</a>
+            <a class="link basic-link" href="updateuser.php">Update your profile (coming later)</a>
         </div>
-
     </div>
     <div class="content">
         <?php

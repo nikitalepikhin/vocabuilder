@@ -1,0 +1,94 @@
+.main-container {
+    background-color: #121212;
+    color: white;
+}
+
+.nav-panel {
+    background-color: #1f1f1f;
+}
+
+.nav-item:hover {
+    background-color: #818181;
+}
+
+.nav-link, .nav-link:hover {
+    color: white;
+}
+
+.form-item > .input {
+    background-color: #818181;
+    color: black;
+    border: none;
+}
+
+.form-item > .input:focus {
+    outline: none;
+}
+
+.footer-panel {
+    background-color: #1f1f1f;
+}
+
+.required-input-label::after {
+    color: #d43f3a;
+}
+
+.btn {
+    background-color: #1976d2;
+    color: white;
+}
+
+.btn:hover {
+    background-color: #1e88e5;
+    color: white;
+}
+
+.vocab-set-card {
+    background-color: #1f1f1f;
+    border: 1px solid #1f1f1f;
+    color: white;
+}
+
+.vocab-set-card:hover {
+    border: 1px solid #818181;
+}
+
+.link {
+    color: white;
+}
+
+.basic-link {
+    color: #818181;
+}
+
+.inviting-link {
+    color: #1e88e5;
+}
+
+.basic-link:hover {
+    color: white;
+}
+
+.removal-link {
+    color: #d43f3a;
+}
+
+p.word {
+    color: white;
+}
+
+p.definition {
+    color: #818181;
+}
+
+.word-card {
+    background-color: #1f1f1f;
+}
+
+.word-card-key {
+    color: white;
+}
+
+.word-card-value {
+    color: white;
+}

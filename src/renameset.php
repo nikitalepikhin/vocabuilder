@@ -11,17 +11,17 @@ if (isset($_GET["error"])) {
 }
 ?>
 
-<form class="form add-set-form" action="controllers/addvocabset.controller.php" method="post">
-    <h1 class="form-heading">Add a new vocabulary set</h1>
+<form class="form add-set-form" action="controllers/renamevocabset.controller.php?id=<?php echo $_GET["id"] ?>" method="post">
+    <h1 class="form-heading">Rename the vocabulary set</h1>
 
     <div class="form-items-container">
         <div class="form-item form-item-set-name">
             <label for="setName">Set name</label>
-            <input title="Letters and spaces only" pattern="[A-Za-z ]+" class="input" type="text" id="setName" name="setName">
+            <input class="input" type="text" id="setName" name="setName">
         </div>
     </div>
 
-    <button class="btn" type="submit" name="submit">Add</button>
+    <button class="btn" type="submit" name="submit">Rename</button>
 
     <?php if ($errorCode !== null): ?>
         <div class="message error-message">

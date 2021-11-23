@@ -21,16 +21,16 @@ $vocabSetId = $_GET["id"];
             <?php if (isset($_GET["key"])): ?>
                 <input type="text" id="word" name="word" value="<?php echo $_GET["key"] ?>">
             <?php else: ?>
-                <input type="text" id="word" name="word">
+                <input title="Letters and spaces only" pattern="[A-Za-z ]+" type="text" id="word" name="word">
             <?php endif ?>
         </div>
 
         <div class="form-item form-item-definition">
             <label for="definition">Definition</label>
             <?php if (isset($_GET["value"])): ?>
-                <input type="text" id="definition" name="definition" value="<?php echo $_GET["value"] ?>">
+                <input class="input" type="text" id="definition" name="definition" value="<?php echo $_GET["value"] ?>">
             <?php else: ?>
-                <input type="text" id="definition" name="definition">
+                <input title="Letters and spaces only" pattern="[A-Za-z ]+" class="input" type="text" id="definition" name="definition">
             <?php endif ?>
         </div>
     </div>
@@ -44,7 +44,7 @@ $vocabSetId = $_GET["id"];
     <?php endif ?>
 </form>
 
-<div><a class="link" href="vocabset.php?id=<?php echo $vocabSetId ?>">Go back to the set</a></div>
+<div><a class="link basic-link" href="vocabset.php?id=<?php echo $vocabSetId ?>">Go back to the set</a></div>
 
 <?php
 include_once "footer.php"

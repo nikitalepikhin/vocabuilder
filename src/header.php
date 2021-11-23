@@ -7,16 +7,22 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <title>Vocabuilder</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles/styles.css">
+    <?php if (empty($_SESSION["theme"]) || $_SESSION["theme"] == "light"): ?>
+        <link rel="stylesheet" href="styles/light.css">
+    <?php else: ?>
+        <link rel="stylesheet" href="styles/dark.css">
+    <?php endif ?>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/47aca44441.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="main-container">
 
     <header>
-        <nav>
+        <nav class="nav-panel">
             <div class="nav-left">
                 <a href="index.php" class="nav-link">
                     <div class="nav-item logo">
@@ -24,20 +30,22 @@ session_start();
                     </div>
                 </a>
             </div>
+
             <div class="nav-right">
                 <?php if (isset($_SESSION["userid"])): ?>
+                    <a href="updateuser.php" class="nav-link">
+                        <div class="nav-item">
+                            Profile (coming later)
+                        </div>
+                    </a>
                     <a href="profile.php" class="nav-link">
                         <div class="nav-item">
-                            <?php if (empty($_SESSION["first"])): ?>
-                                Profile (<?php echo $_SESSION["username"] ?>)
-                            <?php else: ?>
-                                Profile (<?php echo $_SESSION["first"] . " " . $_SESSION["last"] ?>)
-                            <?php endif ?>
+                            Vocabulary
                         </div>
                     </a>
                     <a href="logout.php" class="nav-link">
                         <div class="nav-item">
-                            Log Out
+                            Log out (<?php echo $_SESSION["username"] ?>)
                         </div>
                     </a>
                 <?php else: ?>
@@ -53,6 +61,19 @@ session_start();
                     </a>
                 <?php endif; ?>
 
+                <?php if (empty($_SESSION["theme"]) || $_SESSION["theme"] == "light"): ?>
+                    <a href="controllers/changemode.controller.php?theme=dark" class="nav-link">
+                        <div class="nav-item">
+                            <i class="fas fa-adjust"></i>
+                        </div>
+                    </a>
+                <?php else: ?>
+                    <a href="controllers/changemode.controller.php?theme=light" class="nav-link">
+                        <div class="nav-item">
+                            <i class="fas fa-adjust"></i>
+                        </div>
+                    </a>
+                <?php endif ?>
             </div>
         </nav>
     </header>

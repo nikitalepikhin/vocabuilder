@@ -10,6 +10,7 @@ if (isset($_GET["error"])) {
     $errorMessage = getErrorMessage($errorCode);
 }
 ?>
+<script src="scripts/login.js" defer></script>
 
     <form class="form login-form" action="controllers/login.controller.php" method="post">
         <h1 class="form-heading">Log In</h1>
@@ -35,16 +36,14 @@ if (isset($_GET["error"])) {
 
         <button class="btn" type="submit" name="submit">Log In</button>
 
-        <?php if ($errorCode === "none"): ?>
-            <div class="message info-message">
-                You have successfully logged in.
-            </div>
-        <?php elseif ($errorCode !== null): ?>
+        <?php if ($errorCode !== null): ?>
             <div class="message error-message">
                 <?php echo $errorMessage ?>
             </div>
         <?php endif ?>
     </form>
+
+    <div>Still not registered? <a class="link inviting-link" href="signup.php">Sign up</a>.</div>
 
 <?php
 include_once "footer.php";

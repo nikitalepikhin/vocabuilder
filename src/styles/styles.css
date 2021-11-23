@@ -3,70 +3,42 @@
     margin: 0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
-    font-size: 1rem;
+    font-size: medium;
 }
 
 /* Navbar styling */
-nav {
+.nav-panel {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
     width: 100vw;
     padding: 0 70px;
-    background-color: #323232;
     position: sticky;
 }
 
-.profile-menu {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    width: 100vw;
-    padding: 0 35px;
-    background-color: #f5f5f7;
-    margin-bottom: 20px;
-}
-
-.profile-menu-item {
-    padding: 10px 20px;
-    transition: color .2s ease;
-}
-
-.profile-menu-item:hover {
-    color: #0039cb;
-}
-
-.profile-menu-link {
-    text-decoration: none;
-    color: black;
-}
-
-.nav-left, .nav-right, .nav-center {
+.nav-left, .nav-right {
     display: flex;
     justify-content: space-around;
 }
 
 .nav-item {
-    padding: 15px 40px;
+    padding: 12px 25px;
 }
 
 .nav-item:hover {
-    background-color: #707070;
     transition: 0.3s ease;
 }
 
-.nav-link {
-    color: white;
+.nav-link, .nav-link:hover {
     text-decoration: none;
 }
 
 /* Footer styling */
-footer {
+.footer-panel {
     display: flex;
     justify-content: center;
     width: 100vw;
-    background-color: #f5f5f7;
-    font-size: 3px;
+    font-size: x-small;
 }
 
 .footer-item {
@@ -74,6 +46,16 @@ footer {
 }
 
 /* Main content styling */
+.motto {
+    font-weight: bolder;
+    font-size: xx-large;
+}
+
+.motto-link {
+    font-size: larger;
+    padding: 10px;
+}
+
 .main-container {
     display: flex;
     justify-content: space-between;
@@ -96,14 +78,11 @@ footer {
 
 .required-input-label::after {
     content: " *";
-    color: darkred;
 }
 
 .btn {
     width: fit-content;
-    background-color: #2962ff;
     border-radius: 3px;
-    color: #fff;
     border: none;
     padding: 8px 12px;
     text-transform: uppercase;
@@ -113,24 +92,22 @@ footer {
 }
 
 .btn:hover {
-    background-color: #0039cb;
     transition: 0.3s ease;
 }
 
 .message {
     padding: 10px 15px;
     margin: 10px;
-    /*border-radius: 3px;*/
     text-align: center;
 }
 
 .error-message {
-    /*background-color: rgba(212, 63, 58, 0.3);*/
+    background-color: rgba(212, 63, 58, 0.3);
     color: #d43f3a;
 }
 
 .info-message {
-    /*background-color: rgba(124, 179, 66, 0.3);*/
+    background-color: rgba(124, 179, 66, 0.3);
     color: #4b830d;
 }
 
@@ -145,7 +122,8 @@ footer {
 }
 
 .form-heading {
-    font-size: larger;
+    font-size: x-large;
+    font-weight: bold;
     text-transform: uppercase;
 }
 
@@ -157,8 +135,9 @@ footer {
 
 .form-item > .input {
     width: 100%;
-    border: 1px solid #d6d6d6;
-    border-radius: 2px;
+    padding: 5px;
+    border: none;
+    border-bottom: 1px solid #c4c4c4;
 }
 
 .form-item > label {
@@ -285,10 +264,8 @@ footer {
 
 /* Vocabulary sets page styling */
 .vocab-set-card {
-    background-color: rgba(219, 219, 219, 0.4);
     padding: 20px;
     font-size: larger;
-    color: black;
     margin: 10px 60px;
     border-radius: 4px;
     display: flex;
@@ -296,30 +273,22 @@ footer {
 }
 
 .vocab-set-card:hover {
-    background-color: rgb(230, 230, 230);
     transition: background-color .1s ease;
 }
 
 .link {
     text-decoration: none;
-    color: black;
 }
 
-.basic-link {
-    color: black;
-}
-
-.inviting-link {
-    color: #0039cb;
+.link:hover {
+    text-decoration: none;
 }
 
 .basic-link:hover {
     text-decoration: underline;
-    color: #0039cb;
 }
 
 .removal-link {
-    color: #d43f3a;
     font-weight: bolder;
 }
 
@@ -343,9 +312,8 @@ p.definition {
 
 /* Word card styling */
 .word-card {
-    background-color: rgba(219, 219, 219, 0.4);
     padding: 20px;
-    color: black;
+    color: white;
     margin: 10px 60px;
     border-radius: 4px;
     display: flex;
@@ -360,12 +328,14 @@ p.definition {
     text-align: center;
     padding: 10px 0 5px 0;
     text-transform: capitalize;
+    color: white;
 }
 
 .word-card-value {
     width: 100%;
     padding: 10px 0 5px 0;
     text-align: center;
+    color: white;
 }
 
 
