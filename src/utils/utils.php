@@ -1,27 +1,37 @@
 <?php
 
-error_reporting(0);
-
-function birthdateIsValid($birthDate)
+/**
+ * @param $birthdate string
+ * @return bool
+ */
+function birthdateIsValid(string $birthdate): bool
 {
-    if (!userBornAfter1920($birthDate)) return false;
-    if (!userIsAtLeastFourteen($birthDate)) return false;
+    if (!userBornAfter1920($birthdate)) return false;
+    if (!userIsAtLeastFourteen($birthdate)) return false;
     return true;
 }
 
-function userBornAfter1920($birthDate)
+/**
+ * @param $birthdate string
+ * @return bool
+ */
+function userBornAfter1920(string $birthdate): bool
 {
-    $birthDate = explode("-", $birthDate);
-    $birthYear = (int)$birthDate[0];
+    $birthdate = explode("-", $birthdate);
+    $birthYear = (int)$birthdate[0];
     return $birthYear > 1920;
 }
 
-function userIsAtLeastFourteen($birthDate)
+/**
+ * @param $birthdate string
+ * @return bool
+ */
+function userIsAtLeastFourteen(string $birthdate): bool
 {
-    $birthDate = explode("-", $birthDate);
-    $birthYear = (int)$birthDate[0];
-    $birthMonth = (int)$birthDate[1];
-    $birthDay = (int)$birthDate[2];
+    $birthdate = explode("-", $birthdate);
+    $birthYear = (int)$birthdate[0];
+    $birthMonth = (int)$birthdate[1];
+    $birthDay = (int)$birthdate[2];
     $today = date("Y-m-d");
     $today = explode("-", $today);
     $todayYear = (int)$today[0];
@@ -38,31 +48,54 @@ function userIsAtLeastFourteen($birthDate)
     return $age > 14;
 }
 
-function emailIsValid($email)
+/**
+ * @param $email string
+ * @return mixed
+ */
+function emailIsValid(string $email)
 {
     return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
 
-function passwordsDoMatch($password, $passwordRepeat)
+/**
+ * @param $password string
+ * @param $passwordRepeat string
+ * @return bool
+ */
+function passwordsDoMatch(string $password, string $passwordRepeat): bool
 {
     return strcmp($password, $passwordRepeat) === 0;
 }
 
-function emailDoesExist($conn, $email)
+/**
+ * @param $conn mysqli
+ * @param $email string
+ * @return bool
+ */
+function emailDoesExist(mysqli $conn, string $email): bool
 {
     $sql = "SELECT * FROM USER WHERE USER_EMAIL = '$email'";
     $result = mysqli_query($conn, $sql);
     return mysqli_num_rows($result) > 0;
 }
 
-function usernameDoesExist($conn, $username)
+/**
+ * @param $conn mysqli
+ * @param $username string
+ * @return bool
+ */
+function usernameDoesExist(mysqli $conn, string $username): bool
 {
     $sql = "SELECT * FROM USER WHERE USER_USERNAME = '$username'";
     $result = mysqli_query($conn, $sql);
     return mysqli_num_rows($result) > 0;
 }
 
-function passwordIsStrong($password)
+/**
+ * @param $password string
+ * @return bool
+ */
+function passwordIsStrong(string $password): bool
 {
     if (strlen($password) < 10) return false;
     if (preg_match("#[0-9]+#", $password) == 0) return false; // should contain digits
@@ -76,21 +109,34 @@ function passwordIsStrong($password)
     return strlen($modified) === 0;
 }
 
-function usernameIsValid($username)
+/**
+ * @param $username string
+ * @return bool
+ */
+function usernameIsValid(string $username): bool
 {
     $regex = "#([a-z0-9_]+\.?[a-z0-9_]+)+\.?([a-z0-9_]+\.?[a-z0-9_]+)+#"; // using delimiters #
     $modified = preg_replace($regex, "", $username);
     return strlen($modified) === 0;
 }
 
-function anyNameIsValid($name)
+/**
+ * @param $name string
+ * @return bool
+ */
+function anyNameIsValid(string $name): bool
 {
     $regex = "#[a-zA-Z- ]+#"; // using delimiters #
     $modified = preg_replace($regex, "", $name);
     return strlen($modified) === 0;
 }
 
-function retrieveUserByUsername($conn, $username)
+/**
+ * @param $conn mysqli
+ * @param $username string
+ * @return array|false|string[]|null
+ */
+function retrieveUserByUsername(mysqli $conn, string $username)
 {
     $sql = "SELECT * FROM USER WHERE USER_EMAIL='$username' OR USER_USERNAME='$username'";
     $result = mysqli_query($conn, $sql);
@@ -101,14 +147,24 @@ function retrieveUserByUsername($conn, $username)
     }
 }
 
-function usernameOrEmailExists($conn, $username)
+/**
+ * @param $conn mysqli
+ * @param $username string
+ * @return bool
+ */
+function usernameOrEmailExists(mysqli $conn, string $username): bool
 {
     $emailExists = emailDoesExist($conn, $username);
     $usernameExists = usernameDoesExist($conn, $username);
     return $emailExists || $usernameExists;
 }
 
-function retrieveVocabSetById($conn, $vocabSetId)
+/**
+ * @param $conn mysqli
+ * @param $vocabSetId string
+ * @return array|false|string[]|null
+ */
+function retrieveVocabSetById(mysqli $conn, string $vocabSetId)
 {
     $sql = "SELECT * FROM VOCAB_SET WHERE VOCAB_SET_ID='$vocabSetId'";
     $result = mysqli_query($conn, $sql);
@@ -119,7 +175,16 @@ function retrieveVocabSetById($conn, $vocabSetId)
     }
 }
 
-function retrieveVocabSets($conn, $userId, $pageNumber, $rowsPerPage, $orderBy, $filter)
+/**
+ * @param $conn mysqli
+ * @param $userId string
+ * @param $pageNumber int
+ * @param $rowsPerPage int
+ * @param $orderBy string
+ * @param $filter string
+ * @return bool|mysqli_result
+ */
+function retrieveVocabSets(mysqli $conn, string $userId, int $pageNumber, int $rowsPerPage, string $orderBy, string $filter)
 {
     $offset = strval(($pageNumber - 1) * $rowsPerPage);
     $limit = strval($rowsPerPage);
@@ -136,7 +201,13 @@ function retrieveVocabSets($conn, $userId, $pageNumber, $rowsPerPage, $orderBy, 
     }
 }
 
-function getNumberOfSets($conn, $userId, $filter)
+/**
+ * @param $conn mysqli
+ * @param $userId string
+ * @param $filter string
+ * @return array|false|string[]|null
+ */
+function getNumberOfSets(mysqli $conn, string $userId, string $filter)
 {
     $sql = "SELECT COUNT(*) AS VOCAB_SET_COUNT FROM VOCAB_SET WHERE VOCAB_SET_USER_ID='$userId'";
     if ($filter !== "null") {
@@ -151,7 +222,13 @@ function getNumberOfSets($conn, $userId, $filter)
     }
 }
 
-function getNumberOfWords($conn, $vocabSetId, $filter)
+/**
+ * @param $conn mysqli
+ * @param $vocabSetId string
+ * @param $filter string
+ * @return array|false|string[]|null
+ */
+function getNumberOfWords(mysqli $conn, string $vocabSetId, string $filter)
 {
     $sql = "SELECT COUNT(*) AS WORD_ENTRY_COUNT FROM WORD_ENTRY WHERE WORD_ENTRY_VOCAB_SET_ID='$vocabSetId'";
     if ($filter !== "null") {
@@ -166,7 +243,12 @@ function getNumberOfWords($conn, $vocabSetId, $filter)
     }
 }
 
-function retrieveWordById($conn, $wordId)
+/**
+ * @param $conn mysqli
+ * @param $wordId string
+ * @return array|false|string[]|null
+ */
+function retrieveWordById(mysqli $conn, string $wordId)
 {
     $sql = "SELECT * FROM WORD_ENTRY WHERE WORD_ENTRY_ID='$wordId'";
     $result = mysqli_query($conn, $sql);
@@ -177,7 +259,16 @@ function retrieveWordById($conn, $wordId)
     }
 }
 
-function retrieveWordEntries($conn, $vocabSetId, $pageNumber, $rowsPerPage, $orderBy, $filter)
+/**
+ * @param $conn mysqli
+ * @param $vocabSetId string
+ * @param $pageNumber int
+ * @param $rowsPerPage int
+ * @param $orderBy string
+ * @param $filter string
+ * @return bool|mysqli_result
+ */
+function retrieveWordEntries(mysqli $conn, string $vocabSetId, int $pageNumber, int $rowsPerPage, string $orderBy, string $filter)
 {
     $offset = strval(($pageNumber - 1) * $rowsPerPage);
     $limit = strval($rowsPerPage);

@@ -3,14 +3,21 @@
 require_once "../database/db-conn.php";
 require_once "../utils/utils.php";
 
-function logInTheUser($conn, $username, $password)
+/**
+ * @param $conn mysqli
+ * @param $username string
+ * @param $password string
+ */
+function logInTheUser(mysqli $conn, string $username, string $password)
 {
+//    check if the value entered is an email
     if (preg_match("#@#", $username) === 1) {
         if (strlen($username) > 100) {
             header("Location: ../login.php?error=email-too-long");
             return;
         }
     } else {
+//        or a username
         if (strlen($username) > 50) {
             header("Location: ../login.php?error=username-too-long");
             return;
@@ -23,6 +30,7 @@ function logInTheUser($conn, $username, $password)
         return;
     }
 
+//    hash and salt the entered password, then check if the records match
     $passwordHashed = hash("sha512", $password . "zwasalt2021");
     $passwordStored = retrieveUserByUsername($conn, $username)["USER_PASSWORD"];
     if (strcmp($passwordHashed, $passwordStored) !== 0) {
@@ -57,6 +65,7 @@ function logInTheUser($conn, $username, $password)
         return;
     }
 
+//    save the user data to session
     session_start();
     $_SESSION["userid"] = $userId;
     $_SESSION["username"] = $retrievedUsername;
@@ -66,6 +75,7 @@ function logInTheUser($conn, $username, $password)
     header("Location: ../index.php");
 }
 
+// the form is only valid when submitted properly
 if (isset($_POST["submit"])) {
     $username = $_POST["username"];
     $password = $_POST["password"];

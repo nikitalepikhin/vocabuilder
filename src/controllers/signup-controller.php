@@ -3,10 +3,19 @@
 require_once "../database/db-conn.php";
 require_once "../utils/utils.php";
 
-// create a user and insert in into the database
-function createUser($conn, $email, $username, $password, $firstName, $lastName, $dateOfBirth)
+/**
+ * @param $conn mysqli
+ * @param $email string
+ * @param $username string
+ * @param $password string
+ * @param $firstName string
+ * @param $lastName string
+ * @param $birthdate string
+ * @return bool
+ */
+function createUser(mysqli $conn, string $email, string $username, string $password, string $firstName, string $lastName, string $birthdate): bool
 {
-    $sql = "INSERT INTO USER (USER_EMAIL, USER_USERNAME, USER_PASSWORD, USER_FIRST_NAME, USER_LAST_NAME, USER_BIRTH_DATE) values ('$email', '$username', '$password', '$firstName', '$lastName', '$dateOfBirth')";
+    $sql = "INSERT INTO USER (USER_EMAIL, USER_USERNAME, USER_PASSWORD, USER_FIRST_NAME, USER_LAST_NAME, USER_BIRTH_DATE) values ('$email', '$username', '$password', '$firstName', '$lastName', '$birthdate')";
     if (mysqli_query($conn, $sql)) {
         return true;
     } else {
@@ -156,6 +165,7 @@ if (isset($_POST["submit"])) {
             return;
         }
 
+//        hash and salt the password
         $passwordSalted = $password . "zwasalt2021"; // salt the password
         $passwordHashed = hash("sha512", $passwordSalted); // hash the password with sha512
         $result = createUser($conn, $email, $username, $passwordHashed, $firstName, $lastName, $birthdate);

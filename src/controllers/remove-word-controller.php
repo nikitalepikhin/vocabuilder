@@ -4,7 +4,12 @@ session_start();
 require_once "../database/db-conn.php";
 require_once "../utils/utils.php";
 
-function removeWordEntry($conn, $wordEntryId)
+/**
+ * @param $conn mysqli
+ * @param $wordEntryId string id of the corresponding word entry
+ * @return bool
+ */
+function removeWordEntry(mysqli $conn, string $wordEntryId): bool
 {
     $sql = "DELETE FROM WORD_ENTRY WHERE WORD_ENTRY_ID='$wordEntryId'";
     $result = mysqli_query($conn, $sql);

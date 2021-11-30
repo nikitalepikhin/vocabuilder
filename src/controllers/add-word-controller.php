@@ -1,6 +1,14 @@
 <?php
 
-function addWordToVocabSet($conn, $vocabSetId, $key, $value, $timestamp)
+/**
+ * @param $conn mysqli
+ * @param $vocabSetId string id of the corresponding vocabulary set
+ * @param $key string the word itself
+ * @param $value string word definition
+ * @param $timestamp string date string of the last update
+ * @return bool
+ */
+function addWordToVocabSet(mysqli $conn, string $vocabSetId, string $key, string $value, string $timestamp): bool
 {
     $sql = "INSERT INTO WORD_ENTRY (WORD_ENTRY_KEY, WORD_ENTRY_VALUE, WORD_ENTRY_VOCAB_SET_ID, WORD_ENTRY_TIMESTAMP) VALUES ('$key', '$value', '$vocabSetId', '$timestamp')";
     if (mysqli_query($conn, $sql)) {
@@ -13,13 +21,18 @@ function addWordToVocabSet($conn, $vocabSetId, $key, $value, $timestamp)
     }
 }
 
-function entryIsValid($entry)
+/**
+ * @param $entry string the value to validate
+ * @return bool  whether the provided value is valid or not
+ */
+function entryIsValid($entry): bool
 {
     $regex = "#[A-Za-z0-9-:/.,?!=+()*&@\#$%^'<>_ ]+#";
     $modified = preg_replace($regex, "", $entry);
     return strlen($modified) === 0;
 }
 
+// the form is only valid when submitted by clicking the submit button
 if (isset($_POST["submit"])) {
     $vocabSetId = $_GET["id"];
     $key = $_POST["word"];
@@ -61,6 +74,7 @@ if (isset($_POST["submit"])) {
     require_once "../utils/utils.php";
 
     if (isset($conn)) {
+//        if everything is ok, then persist to the db
         $result = addWordToVocabSet($conn, $vocabSetId, $key, $value, $timestamp);
         if (!$result) {
             mysqli_close($conn);
