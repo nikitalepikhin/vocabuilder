@@ -5,7 +5,7 @@ if (isset($_SESSION["userid"])) {
 }
 require_once "utils/error-handlers.php";
 ?>
-    <!--<script src="scripts/login.js" defer></script>-->
+    <script src="scripts/login.js" defer></script>
 
     <form class="form login-form" action="controllers/login-controller.php" method="post">
         <h1 class="form-heading">Log In</h1>

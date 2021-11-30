@@ -5,7 +5,7 @@ if (isset($_SESSION["userid"])) {
 }
 ?>
 
-<!--<script src="scripts/signup.js" defer></script>-->
+<script src="scripts/signup.js" defer></script>
 
 <form class="form signup-form" action="controllers/signup-controller.php" method="post">
     <h1 class="form-heading">Create an account</h1>
@@ -81,7 +81,7 @@ if (isset($_SESSION["userid"])) {
         <div class="form-item form-item-password">
             <label for="password" class="required-input-label">Password </label>
             <input title="Letters, numbers and special characters. At least one of each. Should be at least 10 characters long."
-                   pattern="[A-Za-z0-9~`!@#$%^&*()-_+={}\[\]|\\\/:;\&quot;'<>,.?]+" required
+                   pattern="[0-9A-Za-z~`!@#$%^&*()-_+={}\[\]|/:;&quot;&bsol;&bsol;'<>,.?]{10,}" required
                    id="password" name="password" type="password"
                    class="input password-input" autocomplete="off"/>
         </div>
@@ -89,7 +89,7 @@ if (isset($_SESSION["userid"])) {
         <div class="form-item form-item-password-repeat">
             <label for="password-repeat" class="required-input-label">Repeat password </label>
             <input title="Letters, numbers and special characters. At least one of each. Should be at least 10 characters long."
-                   pattern="[A-Za-z0-9~`!@#$%^&*()-_+={}\[\]|\\\/:;\&quot;'<>,.?]+" required id="password-repeat" name="password-repeat"
+                   pattern="[0-9A-Za-z~`!@#$%^&*()-_+={}\[\]|/:;&quot;&bsol;&bsol;'<>,.?]{10,}"  required id="password-repeat" name="password-repeat"
                    type="password"
                    class="input password-input password-repeat-input" autocomplete="off"/>
         </div>

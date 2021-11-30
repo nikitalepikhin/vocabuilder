@@ -3,15 +3,21 @@ const passwordInput = document.getElementsByClassName("password-input")[0];
 const form = document.getElementsByClassName("form")[0];
 
 form.addEventListener("submit", (e) => {
-    function controlUsername() {
+    function validateUsername() {
         if (usernameInput.value.length === 0) {
-            throw new Error("Username cannot be empty.");
+            throw new Error("Username or email is required to proceed.");
+        }
+        if (usernameInput.value.length > 100) {
+            throw new Error("The username that you have entered exceeds the allowed length.");
         }
     }
 
-    function controlPassword() {
+    function validatePassword() {
         if (passwordInput.value.length === 0) {
-            throw new Error("Password cannot be empty.")
+            throw new Error("Password is required to proceed.")
+        }
+        if (passwordInput.value.length > 100) {
+            throw new Error("The password that you have entered exceeds the allowed length.");
         }
     }
 
@@ -24,8 +30,8 @@ form.addEventListener("submit", (e) => {
     }
 
     try {
-        controlUsername();
-        controlPassword();
+        validateUsername();
+        validatePassword();
     } catch (error) {
         const errorBox = createErrorMessageBox(error);
         const existingErrorBox = form.getElementsByClassName("error-message")[0];

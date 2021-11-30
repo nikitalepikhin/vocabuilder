@@ -99,9 +99,7 @@ function passwordIsStrong(string $password): bool
 {
     if (strlen($password) < 10) return false;
     if (preg_match("#[0-9]+#", $password) == 0) return false; // should contain digits
-
     if (preg_match("#[A-Z]+#", $password) == 0) return false; // should contain capital letters
-
     if (preg_match("#[a-z]+#", $password) == 0) return false; // should contain small letters
     if (preg_match("#[\~`!@\#$%^&*()-_+={}\[\]|\\\/:;\"'<>,.?]+#", $password) == 0) return false; // should contain special characters
     $regex = "#[0-9A-Za-z\~`!@\#$%^&*()-_+={}\[\]|\\\/:;\"'<>,.?]{10,}#"; // does not contain anything else
