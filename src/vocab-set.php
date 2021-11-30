@@ -7,7 +7,7 @@ $userId = $_SESSION["userid"];
 $pageNumber = $_GET["page"] ?? 1;
 $limit = $_GET["limit"] ?? 5;
 $orderBy = $_GET["order"] ?? "DESC";
-$filter = $_GET["filter"] ?? null;
+$filter = $_GET["filter"] ?? "null";
 ?>
 
 <?php

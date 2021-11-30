@@ -1,6 +1,5 @@
 <?php
 include_once "header.php";
-error_reporting(0);
 if (!isset($_SESSION["userid"])) {
     header("Location: index.php");
 }
@@ -23,7 +22,7 @@ if (isset($_GET["error"])) {
 
     <button class="btn" type="submit" name="submit">Add</button>
 
-    <?php if ($errorCode !== null): ?>
+    <?php if (isset($errorCode)): ?>
         <div class="message error-message">
             <?php echo $errorMessage ?>
         </div>

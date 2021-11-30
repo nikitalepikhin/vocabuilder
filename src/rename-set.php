@@ -1,6 +1,5 @@
 <?php
 include_once "header.php";
-error_reporting(0);
 if (!isset($_SESSION["userid"])) {
     header("Location: index.php");
 }
@@ -31,7 +30,7 @@ $currentSetName = $row["VOCAB_SET_NAME"];
 
     <button class="btn" type="submit" name="submit">Rename</button>
 
-    <?php if ($errorCode !== null): ?>
+    <?php if (isset($errorCode)): ?>
         <div class="message error-message">
             <?php echo $errorMessage ?>
         </div>

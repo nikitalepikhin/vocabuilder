@@ -1,6 +1,5 @@
 <?php
 require_once "header.php";
-error_reporting(0);
 if (isset($_SESSION["userid"])) {
     header("Location: ../profile/profile.php");
 }
