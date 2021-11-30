@@ -1,8 +1,10 @@
 <?php
-include_once "header.php";
+session_start();
 if (!isset($_SESSION["userid"])) {
     header("Location: index.php");
+    exit();
 }
+require_once "header.php";
 if (isset($_GET["error"])) {
     $errorCode = $_GET["error"];
     require_once "utils/error-handlers.php";
@@ -48,5 +50,5 @@ $vocabSetId = $_GET["id"];
 <div><a class="link basic-link" href="vocab-set.php?id=<?php echo $vocabSetId ?>">Go back to the set</a></div>
 
 <?php
-include_once "footer.php"
+require_once "footer.php"
 ?>

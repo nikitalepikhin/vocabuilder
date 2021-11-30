@@ -1,8 +1,10 @@
 <?php
-include_once "header.php";
+session_start();
 if (!isset($_SESSION["userid"])) {
     header("Location: index.php");
+    exit();
 }
+require_once "header.php";
 $wordId = $_GET["id"];
 require_once "database/db-conn.php";
 require_once "utils/utils.php";
@@ -11,7 +13,7 @@ $wordRow = retrieveWordById($conn, $wordId);
 $vocabRow = retrieveVocabSetById($conn, $wordRow["WORD_ENTRY_VOCAB_SET_ID"]);
 $wordOwnerId = $vocabRow["VOCAB_SET_USER_ID"];
 if ($wordRow === false) {
-    header("Location: ../profile.php?error=invalid-word-id");
+    header("Location: profile.php?error=invalid-word-id");
 }
 if ($wordOwnerId !== $_SESSION["userid"]) {
     header("Location: not-found.php");
@@ -42,6 +44,6 @@ $value = $wordRow["WORD_ENTRY_VALUE"];
 </div>
 
 <?php
-include_once "footer.php"
+require_once "footer.php"
 ?>
 

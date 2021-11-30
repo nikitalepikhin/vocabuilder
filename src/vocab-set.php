@@ -1,8 +1,10 @@
 <?php
-include_once "header.php";
+session_start();
 if (!isset($_SESSION["userid"])) {
     header("Location: index.php");
+    exit();
 }
+require_once "header.php";
 $userId = $_SESSION["userid"];
 $pageNumber = $_GET["page"] ?? 1;
 $limit = $_GET["limit"] ?? 5;
@@ -18,7 +20,7 @@ require_once "utils/utils.php";
 if (isset($conn)) {
     $row = retrieveVocabSetById($conn, $vocabSetId);
     if ($row === false) {
-        header("Location: ../profile.php?error=invalidsetid");
+        header("Location: profile.php?error=internal-error");
     }
     if ($row["VOCAB_SET_USER_ID"] !== $_SESSION["userid"]) {
         header("Location: not-found.php");
@@ -136,5 +138,5 @@ if (isset($conn)) {
 </div>
 
 <?php
-include_once "footer.php"
+require_once "footer.php"
 ?>

@@ -1,5 +1,6 @@
 <?php
-include_once "header.php"
+session_start();
+require_once "header.php"
 ?>
     <link rel="stylesheet" href="styles/styles.css">
 
@@ -16,5 +17,5 @@ include_once "header.php"
     </main>
 
 <?php
-include_once "footer.php"
+require_once "footer.php"
 ?>

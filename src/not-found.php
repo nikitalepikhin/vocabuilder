@@ -1,9 +1,9 @@
 <?php
-include_once "header.php";
+require_once "header.php";
 ?>
 
 <div>Not found</div>
 
 <?php
-include_once "footer.php"
+require_once "footer.php"
 ?>

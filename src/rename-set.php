@@ -1,8 +1,10 @@
 <?php
-include_once "header.php";
+session_start();
 if (!isset($_SESSION["userid"])) {
     header("Location: index.php");
+    exit();
 }
+require_once "header.php";
 if (isset($_GET["error"])) {
     $errorCode = $_GET["error"];
     require_once "utils/error-handlers.php";
@@ -12,7 +14,7 @@ require_once "database/db-conn.php";
 require_once "utils/utils.php";
 $row = retrieveVocabSetById($conn, $_GET["id"]);
 if ($row === false) {
-    header("Location: ../profile.php?error=invalid-set-id");
+    header("Location: profile.php?error=invalid-set-id");
 }
 $currentSetName = $row["VOCAB_SET_NAME"];
 ?>
@@ -40,5 +42,5 @@ $currentSetName = $row["VOCAB_SET_NAME"];
 <div><a class="link basic-link" href="profile.php">Go back to profile</a></div>
 
 <?php
-include_once "footer.php"
+require_once "footer.php"
 ?>

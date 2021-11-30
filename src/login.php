@@ -1,8 +1,9 @@
 <?php
-require_once "header.php";
+session_start();
 if (isset($_SESSION["userid"])) {
-    header("Location: ../profile/profile.php");
+    header("Location: profile.php");
 }
+require_once "header.php";
 require_once "utils/error-handlers.php";
 ?>
     <script src="scripts/login.js" defer></script>
@@ -48,5 +49,5 @@ require_once "utils/error-handlers.php";
     <div>Still not registered? <a class="link inviting-link" href="signup.php">Sign up</a>.</div>
 
 <?php
-include_once "footer.php";
+require_once "footer.php";
 ?>

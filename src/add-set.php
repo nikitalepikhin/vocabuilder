@@ -1,8 +1,10 @@
 <?php
-include_once "header.php";
+session_start();
 if (!isset($_SESSION["userid"])) {
     header("Location: index.php");
+    exit();
 }
+require_once "header.php";
 if (isset($_GET["error"])) {
     $errorCode = $_GET["error"];
     require_once "utils/error-handlers.php";
@@ -32,5 +34,5 @@ if (isset($_GET["error"])) {
 <div><a class="link basic-link" href="profile.php">Go back to profile</a></div>
 
 <?php
-include_once "footer.php"
+require_once "footer.php"
 ?>

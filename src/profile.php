@@ -1,10 +1,12 @@
 <?php
-include_once "header.php";
-require_once "database/db-conn.php";
-require_once "utils/utils.php";
+session_start();
 if (empty($_SESSION["userid"])) {
     header("Location: index.php");
+    exit();
 }
+require_once "header.php";
+require_once "database/db-conn.php";
+require_once "utils/utils.php";
 $userId = $_SESSION["userid"];
 $pageNumber = $_GET["page"] ?? 1;
 $limit = $_GET["limit"] ?? 5;
@@ -99,6 +101,6 @@ $filter = $_GET["filter"] ?? "null";
 </div>
 
 <?php
-include_once "footer.php"
+require_once "footer.php"
 ?>
 

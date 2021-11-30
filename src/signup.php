@@ -1,8 +1,10 @@
 <?php
-require_once "header.php";
+session_start();
 if (isset($_SESSION["userid"])) {
     header("Location: profile.php");
+    exit();
 }
+require_once "header.php";
 ?>
 
 <script src="scripts/signup.js" defer></script>
@@ -109,7 +111,7 @@ if (isset($_SESSION["userid"])) {
 <div>Already have an account? <a class="link inviting-link" href="login.php">Log in</a>.</div>
 
 <?php
-include_once "footer.php"
+require_once "footer.php"
 ?>
 
 

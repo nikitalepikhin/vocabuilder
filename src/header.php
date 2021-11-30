@@ -1,5 +1,4 @@
 <?php
-session_start();
 if (!isset($_COOKIE["theme"])) {
     setcookie("theme", "light", time() + 60 * 60 * 24 * 30, "/");
 }
