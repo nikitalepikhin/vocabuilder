@@ -1,6 +1,8 @@
 <?php
 
-function birthDateIsValid($birthDate)
+error_reporting(0);
+
+function birthdateIsValid($birthDate)
 {
     if (!userBornAfter1920($birthDate)) return false;
     if (!userIsAtLeastFourteen($birthDate)) return false;
@@ -36,24 +38,24 @@ function userIsAtLeastFourteen($birthDate)
     return $age > 14;
 }
 
-function emailCorrect($email)
+function emailIsValid($email)
 {
     return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
 
-function passwordsMatch($password, $passwordRepeat)
+function passwordsDoMatch($password, $passwordRepeat)
 {
     return strcmp($password, $passwordRepeat) === 0;
 }
 
-function emailExists($conn, $email)
+function emailDoesExist($conn, $email)
 {
     $sql = "SELECT * FROM USER WHERE USER_EMAIL = '$email'";
     $result = mysqli_query($conn, $sql);
     return mysqli_num_rows($result) > 0;
 }
 
-function usernameExists($conn, $username)
+function usernameDoesExist($conn, $username)
 {
     $sql = "SELECT * FROM USER WHERE USER_USERNAME = '$username'";
     $result = mysqli_query($conn, $sql);
@@ -63,17 +65,28 @@ function usernameExists($conn, $username)
 function passwordIsStrong($password)
 {
     if (strlen($password) < 10) return false;
-    if (preg_match("#[0-9]+#", $password) == 0) return false;
-    if (preg_match("#[A-Z]+#", $password) == 0) return false;
-    if (preg_match("#[a-z]+#", $password) == 0) return false;
-    if (preg_match("#[~`!@#$%^&*()-_+={}\[\]|\\\/:;\"'<>,.?]+#", $password)) return false;
-    return true;
+    if (preg_match("#[0-9]+#", $password) == 0) return false; // should contain digits
+
+    if (preg_match("#[A-Z]+#", $password) == 0) return false; // should contain capital letters
+
+    if (preg_match("#[a-z]+#", $password) == 0) return false; // should contain small letters
+    if (preg_match("#[\~`!@\#$%^&*()-_+={}\[\]|\\\/:;\"'<>,.?]+#", $password) == 0) return false; // should contain special characters
+    $regex = "#[0-9A-Za-z\~`!@\#$%^&*()-_+={}\[\]|\\\/:;\"'<>,.?]{10,}#"; // does not contain anything else
+    $modified = preg_replace($regex, "", $password);
+    return strlen($modified) === 0;
 }
 
-function usernameCorrect($username)
+function usernameIsValid($username)
 {
     $regex = "#([a-z0-9_]+\.?[a-z0-9_]+)+\.?([a-z0-9_]+\.?[a-z0-9_]+)+#"; // using delimiters #
     $modified = preg_replace($regex, "", $username);
+    return strlen($modified) === 0;
+}
+
+function anyNameIsValid($name)
+{
+    $regex = "#[a-zA-Z- ]+#"; // using delimiters #
+    $modified = preg_replace($regex, "", $name);
     return strlen($modified) === 0;
 }
 
@@ -90,8 +103,8 @@ function retrieveUserByUsername($conn, $username)
 
 function usernameOrEmailExists($conn, $username)
 {
-    $emailExists = emailExists($conn, $username);
-    $usernameExists = usernameExists($conn, $username);
+    $emailExists = emailDoesExist($conn, $username);
+    $usernameExists = usernameDoesExist($conn, $username);
     return $emailExists || $usernameExists;
 }
 
@@ -106,14 +119,48 @@ function retrieveVocabSetById($conn, $vocabSetId)
     }
 }
 
-function retrieveVocabSets($conn, $userId, $pageNumber, $rowsPerPage)
+function retrieveVocabSets($conn, $userId, $pageNumber, $rowsPerPage, $orderBy, $filter)
 {
     $offset = strval(($pageNumber - 1) * $rowsPerPage);
     $limit = strval($rowsPerPage);
-    $sql = "SELECT * FROM VOCAB_SET WHERE VOCAB_SET_USER_ID='$userId' LIMIT $limit OFFSET $offset";
+    $sql = "SELECT * FROM VOCAB_SET WHERE VOCAB_SET_USER_ID='$userId' ORDER BY VOCAB_SET_TIMESTAMP $orderBy LIMIT $limit OFFSET $offset";
+    if ($filter !== "null") {
+        $filterLowercase = strtolower($filter);
+        $sql = "SELECT * FROM VOCAB_SET WHERE VOCAB_SET_USER_ID='$userId' AND VOCAB_SET_NAME LIKE '$filter%' OR '$filterLowercase%' ORDER BY VOCAB_SET_TIMESTAMP $orderBy LIMIT $limit OFFSET $offset";
+    }
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
         return $result;
+    } else {
+        return false;
+    }
+}
+
+function getNumberOfSets($conn, $userId, $filter)
+{
+    $sql = "SELECT COUNT(*) AS VOCAB_SET_COUNT FROM VOCAB_SET WHERE VOCAB_SET_USER_ID='$userId'";
+    if ($filter !== "null") {
+        $filterLowercase = strtolower($filter);
+        $sql = "SELECT COUNT(*) AS VOCAB_SET_COUNT FROM VOCAB_SET WHERE VOCAB_SET_USER_ID='$userId' AND VOCAB_SET_NAME LIKE '$filter%' OR '$filterLowercase%'";
+    }
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) === 1) {
+        return mysqli_fetch_assoc($result);
+    } else {
+        return false;
+    }
+}
+
+function getNumberOfWords($conn, $vocabSetId, $filter)
+{
+    $sql = "SELECT COUNT(*) AS WORD_ENTRY_COUNT FROM WORD_ENTRY WHERE WORD_ENTRY_VOCAB_SET_ID='$vocabSetId'";
+    if ($filter !== "null") {
+        $filterLowercase = strtolower($filter);
+        $sql = "SELECT COUNT(*) AS WORD_ENTRY_COUNT FROM WORD_ENTRY WHERE WORD_ENTRY_VOCAB_SET_ID='$vocabSetId' AND WORD_ENTRY_KEY LIKE '$filter%' OR '$filterLowercase%'";
+    }
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) === 1) {
+        return mysqli_fetch_assoc($result);
     } else {
         return false;
     }
@@ -130,11 +177,15 @@ function retrieveWordById($conn, $wordId)
     }
 }
 
-function retrieveWordEntries($conn, $vocabSetId, $pageNumber, $rowsPerPage)
+function retrieveWordEntries($conn, $vocabSetId, $pageNumber, $rowsPerPage, $orderBy, $filter)
 {
     $offset = strval(($pageNumber - 1) * $rowsPerPage);
     $limit = strval($rowsPerPage);
-    $sql = "SELECT * FROM WORD_ENTRY WHERE WORD_ENTRY_VOCAB_SET_ID='$vocabSetId' LIMIT $limit OFFSET $offset";
+    $sql = "SELECT * FROM WORD_ENTRY WHERE WORD_ENTRY_VOCAB_SET_ID='$vocabSetId' ORDER BY WORD_ENTRY_TIMESTAMP $orderBy LIMIT $limit OFFSET $offset";
+    if ($filter !== "null") {
+        $filterLowercase = strtolower($filter);
+        $sql = "SELECT * FROM WORD_ENTRY WHERE WORD_ENTRY_VOCAB_SET_ID='$vocabSetId' AND WORD_ENTRY_KEY  LIKE '$filter%' OR '$filterLowercase%' ORDER BY WORD_ENTRY_TIMESTAMP $orderBy LIMIT $limit OFFSET $offset";
+    }
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
         return $result;

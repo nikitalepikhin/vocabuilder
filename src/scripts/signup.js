@@ -2,7 +2,6 @@ const firstNameInput = document.getElementsByClassName("first-name-input")[0];
 const lastNameInput = document.getElementsByClassName("last-name-input")[0];
 const usernameInput = document.getElementsByClassName("username-input")[0];
 const emailInput = document.getElementsByClassName("email-input")[0];
-const birthdateInput = document.getElementsByClassName("date-of-birth-input")[0];
 const passwordInput = document.getElementsByClassName("password-input")[0];
 const passwordRepeatInput = document.getElementsByClassName("password-repeat-input")[0];
 const form = document.getElementsByClassName("form")[0];

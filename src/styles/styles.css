@@ -38,17 +38,17 @@
     display: flex;
     justify-content: center;
     width: 100vw;
-    font-size: x-small;
 }
 
 .footer-item {
     padding: 5px 20px;
+    font-size: small;
 }
 
 /* Main content styling */
 .motto {
     font-weight: bolder;
-    font-size: xx-large;
+    font-size: x-large;
 }
 
 .motto-link {
@@ -91,6 +91,10 @@
     margin: 10px;
 }
 
+.btn-link {
+    text-decoration: none;
+}
+
 .btn:hover {
     transition: 0.3s ease;
 }
@@ -98,16 +102,16 @@
 .message {
     padding: 10px 15px;
     margin: 10px;
+    width: 500px;
     text-align: center;
+    font-weight: bold;
 }
 
 .error-message {
-    background-color: rgba(212, 63, 58, 0.3);
     color: #d43f3a;
 }
 
 .info-message {
-    background-color: rgba(124, 179, 66, 0.3);
     color: #4b830d;
 }
 
@@ -245,12 +249,12 @@
 
 .toolbar {
     width: 25%;
-    padding: 20px;
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
     flex-direction: column;
     flex-shrink: 0;
+    margin: 0 20px;
 }
 
 .toolbar-item {
@@ -260,20 +264,35 @@
 .content {
     width: 75%;
     flex-shrink: 1;
+    margin: 0 20px;
 }
 
 /* Vocabulary sets page styling */
 .vocab-set-card {
     padding: 20px;
     font-size: larger;
-    margin: 10px 60px;
-    border-radius: 4px;
+    margin: 10px 0px;
+    border-radius: 3px;
     display: flex;
     justify-content: space-between;
+    width: 100%;
 }
 
 .vocab-set-card:hover {
     transition: background-color .1s ease;
+}
+
+.vocab-set-card-removal-btn {
+    width: 10%;
+    text-align: right;
+}
+
+.vocab-set-card-entry {
+    width: 100%;
+}
+
+.vocab-set-card-empty:hover {
+    transition: none;
 }
 
 .link {
@@ -296,18 +315,24 @@
     text-decoration: underline;
 }
 
+.vocab-set-link {
+    width: 90%;
+}
+
 /* List of words in a set page styling*/
 p.word {
     font-size: larger;
     font-weight: bolder;
     margin-bottom: 4px;
-    text-transform: capitalize;
 }
 
 p.definition {
     font-size: medium;
     margin-top: 4px;
-    text-transform: none;
+    width: 90%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Word card styling */
@@ -315,7 +340,7 @@ p.definition {
     padding: 20px;
     color: white;
     margin: 10px 60px;
-    border-radius: 4px;
+    border-radius: 3px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -327,7 +352,6 @@ p.definition {
     width: 100%;
     text-align: center;
     padding: 10px 0 5px 0;
-    text-transform: capitalize;
     color: white;
 }
 
@@ -338,4 +362,58 @@ p.definition {
     color: white;
 }
 
+.form-display-controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%
+}
 
+.form-display-controls-upper {
+    width: 100%;
+}
+
+.form-display-controls-items-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: row;
+    width: 100%;
+}
+
+.form-display-controls-items-container > * {
+    margin-right: 10px;
+}
+
+.cards-content {
+    width: 100%;
+}
+
+.btn-display-options {
+    padding: 6px 8px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.page-selector *, .display-select select {
+    margin-right: 5px;
+}
+
+.display-select select {
+    padding: 2px 4px;
+    border: 1px solid;
+    border-radius: 3px;
+}
+
+.page-title {
+    font-size: xx-large;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+@media screen and (min-width: 1600px) {
+    .main-content-container {
+        padding: 0 10%;
+    }
+}

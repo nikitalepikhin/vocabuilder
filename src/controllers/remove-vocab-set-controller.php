@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once "../database/db.conn.php";
+require_once "../database/db-conn.php";
 require_once "../utils/utils.php";
 
 function removeVocabSet($conn, $vocabSetId)
@@ -23,5 +23,5 @@ if (isset($conn)) {
         header("Location: ../profile.php");
     }
 } else {
-    header("Location: ../notfound.php");
+    header("Location: ../not-found.php");
 }

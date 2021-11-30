@@ -1,19 +1,14 @@
 <?php
-include_once "header.php";
+require_once "header.php";
 error_reporting(0);
 if (isset($_SESSION["userid"])) {
     header("Location: profile.php");
 }
-if (isset($_GET["error"])) {
-    $errorCode = $_GET["error"];
-    require_once "utils/errorhandlers.php";
-    $errorMessage = getErrorMessage($errorCode);
-}
 ?>
 
-<script src="scripts/signup.js" defer></script>
+<!--<script src="scripts/signup.js" defer></script>-->
 
-<form class="form signup-form" action="controllers/signup.controller.php" method="post">
+<form class="form signup-form" action="controllers/signup-controller.php" method="post">
     <h1 class="form-heading">Create an account</h1>
 
     <div class="form-items-container">
@@ -45,13 +40,13 @@ if (isset($_GET["error"])) {
         </div>
 
         <div class="form-item form-item-birthdate">
-            <label for="date-of-birth" class="required-input-label">Date of birth </label>
+            <label for="birthdate" class="required-input-label">Birthdate </label>
             <?php if (isset($_GET["birthdate"]) && $_GET["birthdate"] != "null"): ?>
                 <?php $birthdate = $_GET["birthdate"] ?>
-                <input required id="date-of-birth" name="date-of-birth" type="date" class="input date-of-birth-input"
+                <input required id="birthdate" name="birthdate" type="date" class="input date-of-birth-input"
                        value="<?php echo $birthdate ?>" autocomplete="off"/>
             <?php else: ?>
-                <input required id="date-of-birth" name="date-of-birth" type="date" class="input date-of-birth-input"
+                <input required id="birthdate" name="birthdate" type="date" class="input date-of-birth-input"
                        autocomplete="off"/>
             <?php endif ?>
         </div>
@@ -103,16 +98,10 @@ if (isset($_GET["error"])) {
 
     <button class="btn" type="submit" name="submit">Sign up</button>
 
-    <?php if ($errorCode === "weakpassword"): ?>
+    <?php require_once "utils/error-handlers.php" ?>
+    <?php if (isset($_GET["error"])): ?>
         <div class="message error-message">
-            The password that you have entered is weak. Password must be at least 10 characters long and contain at
-            least
-            one symbol from each of the following groups: capital letters (A-Z), small letters (a-z), digits (0-9) and
-            special characters (*, ^, %, $, ?, etc).
-        </div>
-    <?php elseif ($errorCode !== null): ?>
-        <div class="message error-message">
-            <?php echo $errorMessage ?>
+            <?php echo getErrorMessage($_GET["error"]) ?>
         </div>
     <?php endif ?>
 

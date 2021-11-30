@@ -12,6 +12,7 @@
 
 .footer-panel {
     background-color: #c4c4c4;
+    color: #323232;
 }
 
 .required-input-label::after {
@@ -36,6 +37,12 @@
 .vocab-set-card:hover {
     background-color: #1e88e5;
     border-color: #1e88e5;
+}
+
+.vocab-set-card-empty:hover {
+    background-color: #c4c4c4;
+    border: 1px solid #c4c4c4;
+    color: black;
 }
 
 .form-item > .input:focus {
@@ -77,3 +84,10 @@ p.word, p.definition {
 .word-card-value {
     color: black;
 }
+
+.custom-select select {
+    background-color: white;
+    color: black;
+    border-color: black;
+}
+

@@ -6,18 +6,26 @@ if (!isset($_SESSION["userid"])) {
 }
 if (isset($_GET["error"])) {
     $errorCode = $_GET["error"];
-    require_once "utils/errorhandlers.php";
+    require_once "utils/error-handlers.php";
     $errorMessage = getErrorMessage($errorCode);
 }
+require_once "database/db-conn.php";
+require_once "utils/utils.php";
+$row = retrieveVocabSetById($conn, $_GET["id"]);
+if ($row === false) {
+    header("Location: ../profile.php?error=invalid-set-id");
+}
+$currentSetName = $row["VOCAB_SET_NAME"];
 ?>
 
-<form class="form add-set-form" action="controllers/renamevocabset.controller.php?id=<?php echo $_GET["id"] ?>" method="post">
+<form class="form add-set-form" action="controllers/rename-vocab-set-controller.php?id=<?php echo $_GET["id"] ?>" method="post">
     <h1 class="form-heading">Rename the vocabulary set</h1>
 
     <div class="form-items-container">
         <div class="form-item form-item-set-name">
             <label for="setName">Set name</label>
-            <input class="input" type="text" id="setName" name="setName">
+            <input title="Letters, numbers and special characters" class="input" type="text" id="setName" name="setName"
+                   pattern="[A-Za-z0-9-:/.,?!=+()*&@#$%^'<>_ ]+" value="<?php echo $currentSetName ?>">
         </div>
     </div>
 

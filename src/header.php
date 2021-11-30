@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (!isset($_COOKIE["theme"])) {
+    setcookie("theme", "light", time() + 60 * 60 * 24 * 30, "/");
+}
 ?>
 
 <!doctype html>
@@ -8,7 +11,7 @@ session_start();
     <meta charset="UTF-8">
     <title>Vocabuilder</title>
     <link rel="stylesheet" href="styles/styles.css">
-    <?php if (empty($_SESSION["theme"]) || $_SESSION["theme"] == "light"): ?>
+    <?php if (empty($_COOKIE["theme"]) || $_COOKIE["theme"] == "light"): ?>
         <link rel="stylesheet" href="styles/light.css">
     <?php else: ?>
         <link rel="stylesheet" href="styles/dark.css">
@@ -19,12 +22,13 @@ session_start();
     <script src="https://kit.fontawesome.com/47aca44441.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
 <div class="main-container">
 
     <header>
         <nav class="nav-panel">
             <div class="nav-left">
-                <a href="index.php" class="nav-link">
+                <a href="./index.php" class="nav-link">
                     <div class="nav-item logo">
                         Vocabuilder
                     </div>
@@ -33,11 +37,6 @@ session_start();
 
             <div class="nav-right">
                 <?php if (isset($_SESSION["userid"])): ?>
-                    <a href="updateuser.php" class="nav-link">
-                        <div class="nav-item">
-                            Profile (coming later)
-                        </div>
-                    </a>
                     <a href="profile.php" class="nav-link">
                         <div class="nav-item">
                             Vocabulary
@@ -61,19 +60,20 @@ session_start();
                     </a>
                 <?php endif; ?>
 
-                <?php if (empty($_SESSION["theme"]) || $_SESSION["theme"] == "light"): ?>
-                    <a href="controllers/changemode.controller.php?theme=dark" class="nav-link">
+                <?php if (empty($_COOKIE["theme"]) || $_COOKIE["theme"] == "light"): ?>
+                    <a href="controllers/change-theme-controller.php?theme=dark" class="nav-link">
                         <div class="nav-item">
                             <i class="fas fa-adjust"></i>
                         </div>
                     </a>
                 <?php else: ?>
-                    <a href="controllers/changemode.controller.php?theme=light" class="nav-link">
+                    <a href="controllers/change-theme-controller.php?theme=light" class="nav-link">
                         <div class="nav-item">
                             <i class="fas fa-adjust"></i>
                         </div>
                     </a>
                 <?php endif ?>
+
             </div>
         </nav>
     </header>

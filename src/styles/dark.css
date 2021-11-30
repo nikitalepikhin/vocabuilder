@@ -1,5 +1,5 @@
 .main-container {
-    background-color: #121212;
+    background-color: #323232;
     color: white;
 }
 
@@ -26,6 +26,7 @@
 }
 
 .footer-panel {
+    color: #818181;
     background-color: #1f1f1f;
 }
 
@@ -53,12 +54,14 @@
     border: 1px solid #818181;
 }
 
-.link {
+.vocab-set-card-empty:hover {
+    background-color: #1f1f1f;
+    border: 1px solid #1f1f1f;
     color: white;
 }
 
-.basic-link {
-    color: #818181;
+.link, .basic-link {
+    color: white;
 }
 
 .inviting-link {
@@ -91,4 +94,20 @@ p.definition {
 
 .word-card-value {
     color: white;
+}
+
+.custom-select select {
+    background-color: #1f1f1f;
+    color: white;
+    border-color: #818181;
+}
+
+.page-selector:nth-of-type(2) {
+    border-bottom: 1px solid white;
+    padding-bottom: 4px;
+}
+
+.page-selector:nth-of-type(1) {
+    border-top: 1px solid white;
+    padding-top: 4px;
 }

@@ -1,18 +1,14 @@
 <?php
-include_once "header.php";
+require_once "header.php";
 error_reporting(0);
 if (isset($_SESSION["userid"])) {
     header("Location: ../profile/profile.php");
 }
-if (isset($_GET["error"])) {
-    $errorCode = $_GET["error"];
-    require_once "utils/errorhandlers.php";
-    $errorMessage = getErrorMessage($errorCode);
-}
+require_once "utils/error-handlers.php";
 ?>
-<script src="scripts/login.js" defer></script>
+    <!--<script src="scripts/login.js" defer></script>-->
 
-    <form class="form login-form" action="controllers/login.controller.php" method="post">
+    <form class="form login-form" action="controllers/login-controller.php" method="post">
         <h1 class="form-heading">Log In</h1>
 
         <div class="form-items-container">
@@ -36,10 +32,17 @@ if (isset($_GET["error"])) {
 
         <button class="btn" type="submit" name="submit">Log In</button>
 
-        <?php if ($errorCode !== null): ?>
-            <div class="message error-message">
-                <?php echo $errorMessage ?>
-            </div>
+
+        <?php if (isset($_GET["error"])): ?>
+            <?php if ($_GET["error"] == "none"): ?>
+                <div class="message info-message">
+                    You have successfully signed up!
+                </div>
+            <?php else: ?>
+                <div class="message error-message">
+                    <?php echo getErrorMessage($_GET["error"]) ?>
+                </div>
+            <?php endif ?>
         <?php endif ?>
     </form>
 
