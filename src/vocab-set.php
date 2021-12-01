@@ -127,7 +127,7 @@ if (isset($conn)) {
 
                     <?php for ($i = 1; $i <= $numberOfPages; $i++): ?>
                         <a class='link inviting-link'
-                           href='/vocab-set.php?id=<?php echo $vocabSetId ?>&page=<?php echo $i ?>&limit=<?php echo $limit ?>&order=<?php echo $orderBy ?>&filter=<?php echo $filter == null ? "null" : $filter ?>'>
+                           href='vocab-set.php?id=<?php echo $vocabSetId ?>&page=<?php echo $i ?>&limit=<?php echo $limit ?>&order=<?php echo $orderBy ?>&filter=<?php echo $filter == null ? "null" : $filter ?>'>
                             <?php echo $i ?>
                         </a>
                     <?php endfor ?>
