@@ -14,7 +14,8 @@ form.addEventListener("submit", (e) => {
         if (usernameInput.value.length > 50) {
             throw new Error("The username that you have entered exceeds the allowed length.");
         }
-        if (usernameInput.value.match("([a-z0-9_]+\\.?[a-z0-9_]+)+\\.?([a-z0-9_]+\\.?[a-z0-9_]+)+")[0].length !== usernameInput.value.length) {
+        const result = usernameInput.value.match("([a-z0-9_]+\\.?[a-z0-9_]+)+\\.?([a-z0-9_]+\\.?[a-z0-9_]+)+");
+        if (result === null || result[0].length !== usernameInput.value.length) {
             throw new Error("The username that you have entered does not match the required format.");
         }
     }
