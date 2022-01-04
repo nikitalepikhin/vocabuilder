@@ -63,6 +63,12 @@ function getErrorMessage(string $errorCode): string
             return "You have to provide a definition to complete the entry.";
         case "weak-password":
             return "The password that you have entered is too weak.<br/>It should be at least 10 characters long and contain at least one symbol from each of the following group: capital letters (A-Z), small letters (a-z), digits (0-9) and special characters (*, ^, %, $, ?, etc).";
+        case "missing-token":
+            return "The token is missing. Please reload the form.";
+        case "invalid-token":
+            return "The token is invalid. Please reload the form.";
+        case "token-expired":
+            return "The token has expired. Please reload the form.";
         default:
             return "Sorry, an unknown error has occurred. Please try again.";
     }

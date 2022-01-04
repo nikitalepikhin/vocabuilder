@@ -360,6 +360,10 @@ p.definition {
     padding: 10px 0 5px 0;
     text-align: center;
     color: white;
+    width: 90%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .form-display-controls {

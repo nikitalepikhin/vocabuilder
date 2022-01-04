@@ -1,6 +1,12 @@
 <?php
 session_start();
-require_once "header.php"
+require_once "header.php";
+if (isset($_GET["error"])) {
+    $errorCode = $_GET["error"];
+    require_once "utils/error-handlers.php";
+    $errorMessage = getErrorMessage($errorCode);
+}
+$vocabSetId = $_GET["id"];
 ?>
     <link rel="stylesheet" href="styles/styles.css">
 
@@ -14,6 +20,11 @@ require_once "header.php"
             <div class="motto">Sign up and start learning vocabulary today!</div>
             <a class="link inviting-link motto-link" href="signup.php">Let's Go!</a>
         <?php endif; ?>
+        <?php if (isset($errorCode)): ?>
+            <div class="message error-message">
+                <?php echo $errorMessage ?>
+            </div>
+        <?php endif ?>
     </main>
 
 <?php

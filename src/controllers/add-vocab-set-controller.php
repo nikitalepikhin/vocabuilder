@@ -36,35 +36,52 @@ if (isset($_POST["submit"])) {
     $userId = $_SESSION["userid"];
     $timestamp = date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']);
 
-//    check the vocab set name
-    if (strlen($setName) > 40) {
-        header("Location: ../add-set.php?error=set-too-long");
+    // if the token field is not set or token data is not present in the session, then return
+    if (!isset($_POST["token"]) || !isset($_SESSION["token"]) || !isset($_SESSION["token-expiration"])) {
+        header("Location: ../add-set.php?error=missing-token");
         return;
-    }
-
-//    validate the vocab set name format
-    if (!vocabSetNameIsValid($setName)) {
-        header("Location: ../add-set.php?error=invalid-set");
-        return;
-    }
-
-    require_once "../database/db-conn.php";
-    require_once "../utils/utils.php";
-
-    if (isset($conn)) {
-        if (empty($setName)) {
-            header("Location: ../add-set.php?error=empty-set");
+    } elseif ($_SESSION["token"] == $_POST["token"]) {
+        // if token in session is equal to the token in the request
+        // if the token has expired, then return
+        if (time() >= $_SESSION["token-expiration"]) {
+            header("Location: ../add-set.php?error=token-expired");
             return;
         }
-//        if everything is ok, then persist to the db
-        $result = addSet($conn, $userId, $setName, $timestamp);
-        if ($result === false) {
-            header("Location: ../add-set.php?error=internal-error");
+        // check the vocab set name
+        if (strlen($setName) > 40) {
+            header("Location: ../add-set.php?error=set-too-long");
+            return;
         }
-        mysqli_close($conn);
-        header("Location: ../profile.php");
-    }
 
+        // validate the vocab set name format
+        if (!vocabSetNameIsValid($setName)) {
+            header("Location: ../add-set.php?error=invalid-set");
+            return;
+        }
+
+        require_once "../database/db-conn.php";
+        require_once "../utils/utils.php";
+
+        if (isset($conn)) {
+            if (empty($setName)) {
+                header("Location: ../add-set.php?error=empty-set");
+                return;
+            }
+            // if everything is ok, then persist to the db
+            $result = addSet($conn, $userId, $setName, $timestamp);
+            if ($result === false) {
+                header("Location: ../add-set.php?error=internal-error");
+            }
+            mysqli_close($conn);
+            // unset the token session values before returning
+            unset($_SESSION["token"]);
+            unset($_SESSION["token-expiration"]);
+            header("Location: ../profile.php");
+        }
+    } else {
+        header("Location: ../add-set.php?error=invalid-token");
+        return;
+    }
 } else {
     header("Location: ../not-found.php");
 }

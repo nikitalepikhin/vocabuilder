@@ -61,7 +61,7 @@ if (isset($_POST["submit"])) {
     }
 
     if (strlen($value) > 500) {
-        header("Location: ../add-word.php?id=$vocabSetId&value=$value&error=word-value-too-long");
+        header("Location: ../add-word.php?id=$vocabSetId&key=$key&error=word-value-too-long");
         return;
     }
 
