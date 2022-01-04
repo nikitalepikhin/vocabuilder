@@ -49,7 +49,8 @@ form.addEventListener("submit", (e) => {
             if (firstNameInput.value.length > 50) {
                 throw new Error("The first name that you have entered exceeds the allowed length.")
             }
-            if (firstNameInput.value.match("[a-zA-Z- ]+")[0].length !== firstNameInput.value.length) {
+            const result = firstNameInput.value.match("[a-zA-Z- ]+");
+            if (result === null || result[0].length !== firstNameInput.value.length) {
                 throw new Error("Invalid first name.");
             }
         }
@@ -60,7 +61,8 @@ form.addEventListener("submit", (e) => {
             if (lastNameInput.value.length > 50) {
                 throw new Error("The last name that you have entered exceeds the allowed length.");
             }
-            if (lastNameInput.value.match("[a-zA-Z- ]+")[0].length !== lastNameInput.value.length) {
+            const result = lastNameInput.value.match("[a-zA-Z- ]+");
+            if (result === null || result[0].length !== lastNameInput.value.length) {
                 throw new Error("Invalid last name.");
             }
         }
@@ -71,7 +73,8 @@ form.addEventListener("submit", (e) => {
             throw new Error("The email that you have entered exceeds the allowed length.");
         }
         const officialEmailRegex = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\\])";
-        if (emailInput.value.match(officialEmailRegex)[0].length !== emailInput.value.length) {
+        const result = emailInput.value.match(officialEmailRegex);
+        if (result === null || result[0].length !== emailInput.value.length) {
             throw new Error("The email that you have entered does not match the required format.");
         }
     }
