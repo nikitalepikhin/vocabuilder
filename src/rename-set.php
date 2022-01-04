@@ -19,14 +19,14 @@ if ($row === false) {
 $currentSetName = $row["VOCAB_SET_NAME"];
 ?>
 
-<form class="form add-set-form" action="controllers/rename-vocab-set-controller.php?id=<?php echo htmlspecialchars($_GET["id"] ?>" method="post">
+<form class="form add-set-form" action="controllers/rename-vocab-set-controller.php?id=<?php echo htmlspecialchars($_GET["id"]) ?>" method="post">
     <h1 class="form-heading">Rename the vocabulary set</h1>
 
     <div class="form-items-container">
         <div class="form-item form-item-set-name">
             <label for="setName">Set name</label>
             <input title="Letters, numbers and special characters" class="input" type="text" id="setName" name="setName"
-                   pattern="[A-Za-z0-9-:/.,?!=+()*&@#$%^'<>_ ]+" value="<?php echo htmlspecialchars($currentSetName ?>">
+                   pattern="[A-Za-z0-9-:/.,?!=+()*&@#$%^'<>_ ]+" value="<?php echo htmlspecialchars($currentSetName) ?>">
         </div>
     </div>
 
@@ -34,7 +34,7 @@ $currentSetName = $row["VOCAB_SET_NAME"];
 
     <?php if (isset($errorCode)): ?>
         <div class="message error-message">
-            <?php echo htmlspecialchars($errorMessage ?>
+            <?php echo htmlspecialchars($errorMessage) ?>
         </div>
     <?php endif ?>
 </form>

@@ -19,7 +19,7 @@ require_once "header.php";
                 <?php $first = $_GET["first"]; ?>
                 <input title="Letters and spaces only" pattern="[A-Za-z ]+" id="first-name" name="first-name" type="text"
                        class="input first-name-input"
-                       value="<?php echo htmlspecialchars($first ?>" autocomplete="off"/>
+                       value="<?php echo htmlspecialchars($first) ?>" autocomplete="off"/>
             <?php else: ?>
                 <input title="Letters and spaces only" pattern="[A-Za-z ]+" id="first-name" name="first-name" type="text"
                        class="input first-name-input" autocomplete="off"/>
@@ -32,7 +32,7 @@ require_once "header.php";
                 <?php $last = $_GET["last"] ?>
                 <input title="Letters and spaces only" pattern="[A-Za-z ]+" id="last-name" name="last-name" type="text"
                        class="input last-name-input"
-                       value="<?php echo htmlspecialchars($last ?>" autocomplete="off"/>
+                       value="<?php echo htmlspecialchars($last) ?>" autocomplete="off"/>
             <?php else: ?>
                 <input title="Letters and spaces only" pattern="[A-Za-z ]+" id="last-name" name="last-name" type="text"
                        class="input last-name-input"
@@ -45,7 +45,7 @@ require_once "header.php";
             <?php if (isset($_GET["birthdate"]) && $_GET["birthdate"] != "null"): ?>
                 <?php $birthdate = $_GET["birthdate"] ?>
                 <input required id="birthdate" name="birthdate" type="date" class="input date-of-birth-input"
-                       value="<?php echo htmlspecialchars($birthdate ?>" autocomplete="off"/>
+                       value="<?php echo htmlspecialchars($birthdate) ?>" autocomplete="off"/>
             <?php else: ?>
                 <input required id="birthdate" name="birthdate" type="date" class="input date-of-birth-input"
                        autocomplete="off"/>
@@ -58,7 +58,7 @@ require_once "header.php";
                 <?php $email = $_GET["email"] ?>
                 <input title="Correct email format" pattern="[A-Za-z0-9._]+@[A-Za-z0-9.]+.[A-Za-z0-9.]+" required id="email" name="email"
                        type="email" class="input email-input"
-                       value="<?php echo htmlspecialchars($email ?>" autocomplete="off"/>
+                       value="<?php echo htmlspecialchars($email) ?>" autocomplete="off"/>
             <?php else: ?>
                 <input title="Correct email format" pattern="[A-Za-z0-9._]+@[A-Za-z0-9.]+.[A-Za-z0-9.]+" required id="email" name="email"
                        type="email" class="input email-input"
@@ -72,7 +72,7 @@ require_once "header.php";
                 <?php $username = $_GET["username"] ?>
                 <input title="Lowercase letters, numbers, underscores and full stops. Cannot start with a full stop symbol."
                        pattern="([a-z0-9_]+\.?[a-z0-9_]+)+\.?([a-z0-9_]+\.?[a-z0-9_]+)+" required id="username" name="username" type="text"
-                       class="input username-input" value="<?php echo htmlspecialchars($username ?>" autocomplete="off"/>
+                       class="input username-input" value="<?php echo htmlspecialchars($username) ?>" autocomplete="off"/>
             <?php else: ?>
                 <input title="Lowercase letters, numbers, underscores and full stops. Cannot start with a full stop symbol."
                        pattern="([a-z0-9_]+\.?[a-z0-9_]+)+\.?([a-z0-9_]+\.?[a-z0-9_]+)+" required id="username" name="username" type="text"
@@ -102,7 +102,7 @@ require_once "header.php";
     <?php require_once "utils/error-handlers.php" ?>
     <?php if (isset($_GET["error"])): ?>
         <div class="message error-message">
-            <?php echo htmlspecialchars(getErrorMessage($_GET["error"]) ?>
+            <?php echo htmlspecialchars(getErrorMessage($_GET["error"])) ?>
         </div>
     <?php endif ?>
 
