@@ -27,7 +27,7 @@ $filter = $_GET["filter"] ?? "null";
                 <div class="form-display-controls-items-container">
                     <?php require_once "includes/form-select-include.php" ?>
                     <label>
-                        <input name="page" value="<?php echo $pageNumber ?>" type="text" hidden/>
+                        <input name="page" value="1" type="text" hidden/>
                     </label>
                     <a class="btn btn-link btn-display-options" type="submit" href='profile.php'>Default</a>
                 </div>
@@ -47,8 +47,8 @@ $filter = $_GET["filter"] ?? "null";
 
                     <?php for ($i = 1; $i <= $numberOfPages; $i++): ?>
                         <a class='link inviting-link'
-                           href='profile.php?page=<?php echo $i ?>&limit=<?php echo $limit ?>&order=<?php echo $orderBy ?>&filter=<?php echo $filter == null ? "null" : $filter ?>'>
-                            <?php echo $i ?>
+                           href='profile.php?page=<?php echo htmlspecialchars($i) ?>&limit=<?php echo htmlspecialchars($limit) ?>&order=<?php echo htmlspecialchars($orderBy) ?>&filter=<?php echo htmlspecialchars($filter == null ? "null" : $filter) ?>'>
+                            <?php echo htmlspecialchars($i) ?>
                         </a>
                     <?php endfor ?>
                 </div>
@@ -64,8 +64,8 @@ $filter = $_GET["filter"] ?? "null";
                             $vocabSetId = $row["VOCAB_SET_ID"];
                             $vocabSetName = $row["VOCAB_SET_NAME"];
                             ?>
-                            <a class='link' href='vocab-set.php?id=<?php echo $vocabSetId ?>'>
-                                <div class='vocab-set-card'><?php echo $vocabSetName ?></div>
+                            <a class='link' href='vocab-set.php?id=<?php echo htmlspecialchars($vocabSetId) ?>'>
+                                <div class='vocab-set-card'><?php echo htmlspecialchars($vocabSetName) ?></div>
                             </a>
                         <?php endwhile ?>
                     <?php else : ?>
@@ -90,8 +90,8 @@ $filter = $_GET["filter"] ?? "null";
 
                     <?php for ($i = 1; $i <= $numberOfPages; $i++): ?>
                         <a class='link inviting-link'
-                           href='profile.php?page=<?php echo $i ?>&limit=<?php echo $limit ?>&order=<?php echo $orderBy ?>&filter=<?php echo $filter == null ? "null" : $filter ?>'>
-                            <?php echo $i ?>
+                           href='profile.php?page=<?php echo htmlspecialchars($i) ?>&limit=<?php echo htmlspecialchars($limit) ?>&order=<?php echo htmlspecialchars($orderBy) ?>&filter=<?php echo htmlspecialchars($filter == null ? "null" : $filter) ?>'>
+                            <?php echo htmlspecialchars($i) ?>
                         </a>
                     <?php endfor ?>
                 </div>

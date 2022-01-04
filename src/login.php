@@ -19,7 +19,7 @@ require_once "utils/error-handlers.php";
                            class="input username-input">
                 <?php else: ?>
                     <input required id="username" name="username" type="text"
-                           class="input username-input" value="<?php echo $_GET["username"] ?>">
+                           class="input username-input" value="<?php echo htmlspecialchars($_GET["username"]) ?>">
                 <?php endif ?>
             </div>
 
@@ -40,7 +40,7 @@ require_once "utils/error-handlers.php";
                 </div>
             <?php else: ?>
                 <div class="message error-message">
-                    <?php echo getErrorMessage($_GET["error"]) ?>
+                    <?php echo htmlspecialchars(getErrorMessage($_GET["error"])) ?>
                 </div>
             <?php endif ?>
         <?php endif ?>

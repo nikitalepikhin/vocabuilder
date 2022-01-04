@@ -16,7 +16,6 @@ $_SESSION["token-expiration"] = time() + 3600;
 
 <form class="form add-set-form" action="controllers/add-vocab-set-controller.php" method="post">
     <h1 class="form-heading">Add a new vocabulary set</h1>
-<!--    <pre>token: --><?php //echo $_SESSION["token"] ?><!--</pre>-->
 
     <input type="hidden" name="token" value="<?= $_SESSION["token"] ?>"/>
 
@@ -32,7 +31,7 @@ $_SESSION["token-expiration"] = time() + 3600;
 
     <?php if (isset($errorCode)): ?>
         <div class="message error-message">
-            <?php echo $errorMessage ?>
+            <?php echo htmlspecialchars($errorMessage) ?>
         </div>
     <?php endif ?>
 </form>

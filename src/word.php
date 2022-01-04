@@ -25,20 +25,20 @@ $value = $wordRow["WORD_ENTRY_VALUE"];
 <div class="main-content-container">
     <div class="toolbar">
         <div class="toolbar-item">
-            <a class="link basic-link" href="vocab-set.php?id=<?php echo $wordRow["WORD_ENTRY_VOCAB_SET_ID"] ?>">
+            <a class="link basic-link" href="vocab-set.php?id=<?php echo htmlspecialchars(htmlspecialchars($wordRow["WORD_ENTRY_VOCAB_SET_ID"])) ?>">
                 Go back to the vocabulary set
             </a>
         </div>
         <div class="toolbar-item">
-            <a class="link basic-link" href="controllers/remove-word-controller.php?id=<?php echo $wordId ?>">
+            <a class="link basic-link" href="controllers/remove-word-controller.php?id=<?php echo htmlspecialchars(htmlspecialchars($wordId)) ?>">
                 Remove this entry
             </a>
         </div>
     </div>
     <div class="content">
         <div class="word-card">
-            <div class="word-card-key"><?php echo $key ?></div>
-            <div class="word-card-value"><?php echo $value ?></div>
+            <div class="word-card-key"><?php echo htmlspecialchars($key) ?></div>
+            <div class="word-card-value"><?php echo htmlspecialchars($value) ?></div>
         </div>
     </div>
 </div>

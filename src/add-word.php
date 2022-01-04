@@ -13,14 +13,14 @@ if (isset($_GET["error"])) {
 $vocabSetId = $_GET["id"];
 ?>
 
-<form class="form add-word-form" action="controllers/add-word-controller.php?id=<?php echo $vocabSetId ?>" method="post">
+<form class="form add-word-form" action="controllers/add-word-controller.php?id=<?php echo htmlspecialchars($vocabSetId) ?>" method="post">
     <h1 class="form-heading">Add a new word</h1>
 
     <div class="form-items-container">
         <div class="form-item form-item-word">
             <label for="word">Word</label>
             <?php if (isset($_GET["key"])): ?>
-                <input class="input" type="text" id="word" name="word" value="<?php echo $_GET["key"] ?>">
+                <input class="input" type="text" id="word" name="word" value="<?php echo htmlspecialchars($_GET["key"]) ?>">
             <?php else: ?>
                 <input class="input" title="Letters, numbers and special characters" pattern="[A-Za-z0-9-:/.,?!=+()*&@#$%^'<>_ ]+"
                        type="text" id="word" name="word">
@@ -30,7 +30,7 @@ $vocabSetId = $_GET["id"];
         <div class="form-item form-item-definition">
             <label for="definition">Definition</label>
             <?php if (isset($_GET["value"])): ?>
-                <input class="input" type="text" id="definition" name="definition" value="<?php echo $_GET["value"] ?>">
+                <input class="input" type="text" id="definition" name="definition" value="<?php echo htmlspecialchars($_GET["value"]) ?>">
             <?php else: ?>
                 <input title="Letters, numbers and special characters" pattern="[A-Za-z0-9-:/.,?!=+()*&@#$%^'<>_ ]+" class="input"
                        type="text" id="definition" name="definition">
@@ -42,12 +42,12 @@ $vocabSetId = $_GET["id"];
 
     <?php if (isset($errorCode)): ?>
         <div class="message error-message">
-            <?php echo $errorMessage ?>
+            <?php echo htmlspecialchars($errorMessage) ?>
         </div>
     <?php endif ?>
 </form>
 
-<div><a class="link basic-link" href="vocab-set.php?id=<?php echo $vocabSetId ?>">Go back to the set</a></div>
+<div><a class="link basic-link" href="vocab-set.php?id=<?php echo htmlspecialchars($vocabSetId) ?>">Go back to the set</a></div>
 
 <?php
 require_once "footer.php"

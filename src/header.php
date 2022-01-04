@@ -43,7 +43,7 @@ if (!isset($_COOKIE["theme"])) {
                     </a>
                     <a href="logout.php" class="nav-link">
                         <div class="nav-item">
-                            Log out (<?php echo $_SESSION["username"] ?>)
+                            Log out (<?php echo htmlspecialchars($_SESSION["username"]) ?>)
                         </div>
                     </a>
                 <?php else: ?>

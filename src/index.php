@@ -6,7 +6,6 @@ if (isset($_GET["error"])) {
     require_once "utils/error-handlers.php";
     $errorMessage = getErrorMessage($errorCode);
 }
-$vocabSetId = $_GET["id"];
 ?>
     <link rel="stylesheet" href="styles/styles.css">
 
@@ -22,7 +21,7 @@ $vocabSetId = $_GET["id"];
         <?php endif; ?>
         <?php if (isset($errorCode)): ?>
             <div class="message error-message">
-                <?php echo $errorMessage ?>
+                <?php echo htmlspecialchars($errorMessage) ?>
             </div>
         <?php endif ?>
     </main>

@@ -35,13 +35,13 @@ if (isset($conn)) {
             <a class="link basic-link" href="profile.php">Go back to profile</a>
         </div>
         <div class="toolbar-item">
-            <a class="link basic-link" href="add-word.php?id=<?php echo $vocabSetId ?>">Add a new word to this set</a>
+            <a class="link basic-link" href="add-word.php?id=<?php echo htmlspecialchars($vocabSetId) ?>">Add a new word to this set</a>
         </div>
         <div class="toolbar-item">
-            <a class="link basic-link" href="rename-set.php?id=<?php echo $vocabSetId ?>">Rename this set</a>
+            <a class="link basic-link" href="rename-set.php?id=<?php echo htmlspecialchars($vocabSetId) ?>">Rename this set</a>
         </div>
         <div class="toolbar-item">
-            <a class="link basic-link" href="controllers/remove-vocab-set-controller.php?id=<?php echo $vocabSetId ?>">Delete this set</a>
+            <a class="link basic-link" href="controllers/remove-vocab-set-controller.php?id=<?php echo htmlspecialchars($vocabSetId) ?>">Delete this set</a>
         </div>
     </div>
     <div class="content">
@@ -52,12 +52,12 @@ if (isset($conn)) {
                 <div class="form-display-controls-items-container">
                     <?php require_once "includes/form-select-include.php" ?>
                     <label>
-                        <input name="id" value="<?php echo $vocabSetId ?>" type="text" hidden/>
+                        <input name="id" value="<?php echo htmlspecialchars($vocabSetId) ?>" type="text" hidden/>
                     </label>
                     <label>
-                        <input name="page" value="<?php echo $pageNumber ?>" type="text" hidden/>
+                        <input name="page" value="<?php echo htmlspecialchars($pageNumber) ?>" type="text" hidden/>
                     </label>
-                    <a class="btn btn-link btn-display-options" type="submit" href='vocab-set.php?id=<?php echo $vocabSetId ?>'>Default</a>
+                    <a class="btn btn-link btn-display-options" type="submit" href='vocab-set.php?id=<?php echo htmlspecialchars($vocabSetId) ?>'>Default</a>
                 </div>
 
                 <div class="page-selector">
@@ -75,13 +75,13 @@ if (isset($conn)) {
 
                     <?php for ($i = 1; $i <= $numberOfPages; $i++): ?>
                         <a class='link inviting-link'
-                           href='vocab-set.php?id=<?php echo $vocabSetId ?>&page=<?php echo $i ?>&limit=<?php echo $limit ?>&order=<?php echo $orderBy ?>&filter=<?php echo $filter == null ? "null" : $filter ?>'>
-                            <?php echo $i ?>
+                           href='vocab-set.php?id=<?php echo htmlspecialchars($vocabSetId) ?>&page=<?php echo htmlspecialchars($i) ?>&limit=<?php echo htmlspecialchars($limit) ?>&order=<?php echo htmlspecialchars($orderBy) ?>&filter=<?php echo htmlspecialchars($filter == null ? "null" : $filter) ?>'>
+                            <?php echo htmlspecialchars($i) ?>
                         </a>
                     <?php endfor ?>
                 </div>
 
-                <div class="page-title"><?php echo $row["VOCAB_SET_NAME"] ?></div>
+                <div class="page-title"><?php echo htmlspecialchars($row["VOCAB_SET_NAME"]) ?></div>
 
                 <div class="cards-content">
                     <?php $result = retrieveWordEntries($conn, $vocabSetId, $pageNumber, $limit, $orderBy, $filter); ?>
@@ -92,15 +92,15 @@ if (isset($conn)) {
                             $value = $row["WORD_ENTRY_VALUE"];
                             $wordEntryId = $row["WORD_ENTRY_ID"];
                             ?>
-                            <a class='link vocab-set-link' href='./word.php?id=<?php echo $wordEntryId ?>'>
+                            <a class='link vocab-set-link' href='./word.php?id=<?php echo htmlspecialchars($wordEntryId) ?>'>
                                 <div class='vocab-set-card'>
                                     <div class="vocab-set-card-entry">
-                                        <p class='word'><?php echo $key ?></p>
-                                        <p class='definition'><?php echo $value ?></p>
+                                        <p class='word'><?php echo htmlspecialchars($key) ?></p>
+                                        <p class='definition'><?php echo htmlspecialchars($value) ?></p>
                                     </div>
                                     <div class="vocab-set-card-removal-btn">
                                         <a class='link removal-link'
-                                           href='controllers/remove-word-controller.php?id=<?php echo $wordEntryId ?>'>Remove</a>
+                                           href='controllers/remove-word-controller.php?id=<?php echo htmlspecialchars($wordEntryId) ?>'>Remove</a>
                                     </div>
                                 </div>
                             </a>
@@ -127,8 +127,8 @@ if (isset($conn)) {
 
                     <?php for ($i = 1; $i <= $numberOfPages; $i++): ?>
                         <a class='link inviting-link'
-                           href='vocab-set.php?id=<?php echo $vocabSetId ?>&page=<?php echo $i ?>&limit=<?php echo $limit ?>&order=<?php echo $orderBy ?>&filter=<?php echo $filter == null ? "null" : $filter ?>'>
-                            <?php echo $i ?>
+                           href='vocab-set.php?id=<?php echo htmlspecialchars($vocabSetId) ?>&page=<?php echo htmlspecialchars($i) ?>&limit=<?php echo htmlspecialchars($limit) ?>&order=<?php echo htmlspecialchars($orderBy) ?>&filter=<?php echo htmlspecialchars($filter == null ? "null" : $filter) ?>'>
+                            <?php echo htmlspecialchars($i) ?>
                         </a>
                     <?php endfor ?>
                 </div>
